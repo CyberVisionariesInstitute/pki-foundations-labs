@@ -52,16 +52,11 @@ Focus on identity and impersonation.
 
 Create:
 
-- labs/week-XX/[lab-name].md
+- labs/week-01/keypair-generation.md
 
 Include:
 
-- Screenshots (if applicable)
+- Screenshots 
 - Notes
 - Short explanation of outcome
 
----
-
-## Stretch (Optional)
-
-Advanced challenge for stronger students.
