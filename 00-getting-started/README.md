@@ -45,14 +45,33 @@ Add Week 1 digital trust reflection
 
 ---
 
-## 4. Portfolio Repository
+4. Portfolio Repository
 
-Students will generate a personal portfolio repository from:
+Each student will generate a personal portfolio repository from:
 
 cvi-student-portfolio-template
 
-All lab submissions go there — not in this repo.
+This repository is where all of your work lives.
 
+You will not submit work in the curriculum repository.
+
+Instead:
+
+Labs live in the labs/ folder
+
+Notes live in the notes/ folder
+
+Reflections live in the reflections/ folder
+
+Projects live in the projects/ folder
+
+Screenshots and supporting files live in the assets/ folder
+
+For a complete breakdown of the portfolio structure, refer to:
+
+👉 The README.md file inside your portfolio repository.
+
+That file is your structural guide for where all work should be documented.
 ---
 
 ## 5. Professional Standards
