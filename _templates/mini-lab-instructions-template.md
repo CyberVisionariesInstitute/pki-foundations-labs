@@ -1,64 +1,59 @@
-Mini Lab — [Mini Lab Title]
-Goal
+# Mini Lab — [Mini Lab Title]
 
-State clearly what concept this mini-lab reinforces.
+## Goal
+State clearly what skill or understanding this lab builds.
 
 Mini-labs are short reinforcement exercises designed to deepen understanding of the current lesson.
 
-Part 1 — Context
+---
+
+## Part 1 — Context
 
 Briefly state:
+- What lesson this connects to
+- What students should already understand
+- Why this exercise matters
 
-What lesson this connects to
+---
 
-What students should already understand
+## Part 2 — Execution Steps
 
-Why this exercise matters
+1. Step one
+2. Step two
+3. Step three
 
-Part 2 — Execution Steps
+---
 
-Step one
-
-Step two
-
-Step three
-
-Keep steps concise and focused.
-
-Part 3 — Observations
+## Part 3 — Observations
 
 Students should document:
-
-What they observed
-
-How this connects to the lesson
-
-Why it matters in a real system
+- What they observed
+- How this connects to the lesson
+- Why it matters in a real system
 
 Mini-labs prioritize clarity over length.
 
-Submission (Portfolio Repo)
+---
 
-Create or update:
+## Submission (Portfolio Repo)
 
-labs/week-XX/[mini-lab-name].md
+Create:
+
+- labs/week-XX/[mini-lab-name].md
 
 Include:
 
-Required screenshots (if applicable)
+- Screenshots (if applicable)
+- Brief Notes
+- 1 -2 sentence epxlanation in your own words
 
-Brief notes
-
-3–5 sentence explanation in your own words
-
-Insight Check
-
+## Insight Check
 Students should be able to explain:
+- The key concept reinforced
+- How it applies to real-world PKI environments
 
-The key concept reinforced
+---
 
-How it applies to real-world PKI environments
-
-Stretch (Optional)
+## Stretch (Optional)
 
 Optional deeper question or variation for students who want to go further.
