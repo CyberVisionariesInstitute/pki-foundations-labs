@@ -45,7 +45,7 @@ Add Week 1 digital trust reflection
 
 ---
 
-4. Portfolio Repository
+## 4. Portfolio Repository
 
 Each student will generate a personal portfolio repository from:
 
@@ -72,56 +72,10 @@ For a complete breakdown of the portfolio structure, refer to:
 👉 The README.md file inside your portfolio repository.
 
 That file is your structural guide for where all work should be documented.
+
 ---
 
-## 5. Embedding Screenshots (Use Relative Paths Only)
-
-When documenting labs, you will often include screenshots of terminal output, certificate details, or command results.
-
-Follow this standard:
-
-### Step 1 — Store Screenshots Properly
-
-All screenshots must be stored in:
-
-#### assets/screenshots/week-01/
-
-(Adjust the week number accordingly.)
-
-Do not store screenshots in the root directory.
-
-### Step 2 — Embed Using a Relative Path
-
-When embedding an image inside a Markdown file (for example inside labs/week-01/key-pair-generation.md), use a relative path.
-
-Example:
-
-![Key Pair Output](../../assets/screenshots/week-01/keypair-output.png)
-
-Explanation:
-- .. moves up one folder level
-- From labs/week-01/ you move up twice to reach the repository root
-- Then navigate into assets/screenshots/week-01/
-
-#### This is called a relative file path.
-
-## ❌ Do NOT Use:
-
-Absolute file paths from your computer
-- (C:\Users\YourName\Desktop\image.png)
-- Drag-and-drop links that reference your local machine
-- Public URL links unless explicitly instructed
-
-### Why Relative Paths Matter
-Using relative paths ensures:
-- Your repository renders correctly for others
-- Reviewers can view images without errors
-- Your documentation follows professional Git standards
-
-If your image does not render, your path is incorrect.
-Debug the path before submitting.
-
-## 6. Professional Standards
+## 5. Professional Standards
 
 This program models real-world technical environments.
 
