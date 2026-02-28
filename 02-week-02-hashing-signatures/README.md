@@ -13,7 +13,7 @@ By completing these labs, you will demonstrate practical understanding of:
 ## Lab Overview
 
 | Lab     | Topic                   | Security Property          |
-|:--------|:------------------------|:---------------------------|
+|---------|-------------------------|----------------------------|
 | Lab 01  | Symmetric Encryption    | Confidentiality            |
 | Lab 02  | Hashing & Integrity     | Integrity                  |
 | Lab 03  | Digital Signatures      | Integrity + Authenticity   |
