@@ -32,14 +32,14 @@ Complete each lab in order:
 ## Submission Instructions
 1. Create a folder under:
 
-submissions/<your-name>/
+     submissions/<your-name>/
 
 2. Organize your artifacts as follows:
 
-submissions/<your-name>/
-  encrypted/
-  hashes/
-  signatures/
+     submissions/<your-name>/
+       encrypted/
+       hashes/
+       signatures/
 
 3. Commit required artifacts:
     - Encrypted file(s)
