@@ -9,7 +9,6 @@ By completing these labs, you will demonstrate practical understanding of:
  - #### Hashing → Integrity
  - #### Digital Signatures → Integrity + Authenticity
 
---
 
 ## Lab Overview
 #### Lab	        Topic                      Security Property
@@ -17,7 +16,7 @@ By completing these labs, you will demonstrate practical understanding of:
      Lab 02	      Hashing & Integrity	       Integrity
      Lab 03	      Digital Signatures	       Integrity + Authenticity
 
---
+
 
 ## Lab Files
 Complete each lab in order:
@@ -25,7 +24,7 @@ Complete each lab in order:
  - Lab 02 — Create a Hash of a File
  - Lab 03 — Digitally Sign and Verify a File
 
---
+
 
 ## Submission Instructions
 1. Create a folder under:
@@ -49,7 +48,7 @@ submissions/<your-name>/
 4. #### Do NOT commit private keys.
 5. Submit your work via Pull Request.
 
---
+
 
 ## Completion Criteria
 You are considered complete when:
@@ -60,7 +59,7 @@ You are considered complete when:
     - Why a hash changes when data changes
     - Why a digital signature fails after tampering
   
---
+
 
 ## Why This Matters
 Everything in PKI relies on these primitives:
