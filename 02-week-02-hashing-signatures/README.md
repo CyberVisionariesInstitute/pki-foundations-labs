@@ -37,9 +37,9 @@ Complete each lab in order:
 2. Organize your artifacts as follows:
 
      #### submissions/<your-name>/
-     #### encrypted/
-     ##### hashes/
-     ##### signatures/
+          #### encrypted/
+          #### hashes/
+          #### signatures/
 
 3. Commit required artifacts:
     - Encrypted file(s)
