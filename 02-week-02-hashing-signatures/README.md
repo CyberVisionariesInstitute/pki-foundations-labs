@@ -31,10 +31,10 @@ Complete each lab in order:
 
 ## Submission Instructions
 1. Create a folder under:
-    - submissions/<your-name>/
+    - submissions/your-name/
 
 2. Organize your artifacts as follows:
-     - submissions/<your-name>/
+     - submissions/your-name/
          - encrypted/
          - hashes/
          - signatures/
