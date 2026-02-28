@@ -20,6 +20,7 @@ By completing these labs, you will demonstrate practical understanding of:
 
 
 
+
 ## Lab Files
 Complete each lab in order:
  - Lab 01 — Encrypt a File Symmetrically
