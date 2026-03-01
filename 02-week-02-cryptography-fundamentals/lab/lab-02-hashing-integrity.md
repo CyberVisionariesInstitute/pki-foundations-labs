@@ -94,14 +94,3 @@ openssl dgst -sha512 message.txt
 
 CVI PKI Career Pathway — Foundations Phase
 
-
----
-
-This lab reinforces:
-
-- Integrity
-- Avalanche effect
-- Algorithm awareness
-- Practical PKI relevance
-
-Next up would be **Lab 03 — Digital Signatures**, which ties encryption + hashing together and
