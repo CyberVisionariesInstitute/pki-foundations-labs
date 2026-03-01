@@ -1,76 +1,73 @@
 # Week 2 — Cryptography Fundamentals Labs
 
-## Phase 1: PKI Foundations
+#### Focus: Confidentiality, Integrity, and Authenticity
 
-This folder contains the hands-on labs for Week 2.
+This week moves from theory to application. You will work directly with the cryptographic primitives that power PKI and secure communications.
 
-This week focuses on applying the three core security properties that make digital trust possible:
+By completing these labs, you will demonstrate practical understanding of:
+ - #### Encryption → Confidentiality
+ - #### Hashing → Integrity
+ - #### Digital Signatures → Integrity + Authenticity
 
-- **Confidentiality** → Symmetric Encryption  
-- **Integrity** → Hashing  
-- **Authenticity** → Digital Signatures  
 
----
+## Lab Overview
 
-## Lab Structure
+| Lab     | Topic                   | Security Property          |
+|---------|-------------------------|----------------------------|
+| Lab 01  | Symmetric Encryption    | Confidentiality            |
+| Lab 02  | Hashing & Integrity     | Integrity                  |
+| Lab 03  | Digital Signatures      | Integrity + Authenticity   |
 
-Complete the labs in order:
 
-1. `lab-01-symmetric-encryption.md`
-2. `lab-02-hashing-integrity.md`
-3. `lab-03-digital-signatures.md`
 
-Each lab builds on the previous one.
 
----
+## Lab Files
+Complete each lab in order:
+ - Lab 01 — Encrypt a File Symmetrically
+ - Lab 02 — Create a Hash of a File
+ - Lab 03 — Digitally Sign and Verify a File
 
-## Submission Requirements
 
-Create the following structure under the `submissions/` directory:
-submissions/your-name/
-encrypted/
-hashes/
-signatures/
 
-Place your artifacts in the appropriate folders:
+## Submission Instructions
+1. Create a folder under:
+    - submissions/your-name/
 
-### encrypted/
-- Encrypted file(s)
-- Decrypted output (if required)
+2. Organize your artifacts as follows:
+     - submissions/your-name/
+         - encrypted/
+         - hashes/
+         - signatures/
 
-### hashes/
-- Original hash output
-- Tampered hash output
+3. Commit required artifacts:
+    - Encrypted file(s)
+    - Hash output files
+    - Signature file(s)
+    - Public key (if applicable)
+    - Short explanations in your README
 
-### signatures/
-- Public key
-- Signature file
-- Verification output
+4. #### Do NOT commit private keys.
+5. Submit your work via Pull Request.
 
-**Do NOT commit private keys.**
 
----
 
 ## Completion Criteria
+You are considered complete when:
+ - All required artifacts are present
+ - Verification commands succeed
+ - You can clearly explain:
+    - What encryption protects
+    - Why a hash changes when data changes
+    - Why a digital signature fails after tampering
+  
 
-You have successfully completed Week 2 labs when:
-
-- All required artifacts are present
-- Signature verification succeeds before tampering
-- Signature verification fails after tampering
-- You can clearly explain:
-  - What encryption protects
-  - Why hashes change when data changes
-  - Why digital signatures fail after modification
-
----
 
 ## Why This Matters
-
 Everything in PKI relies on these primitives:
+ - Certificates are digitally signed
+ - TLS relies on symmetric encryption
+ - Trust validation depends on hashing
 
-- Certificates are digitally signed
-- TLS uses symmetric encryption
-- Trust validation depends on hashing
+Week 3 will build directly on this foundation with an X.509 deep dive.
 
-Mastering these fundamentals prepares you for the X.509 deep dive in Week 3.
+Master these fundamentals before moving forward.
