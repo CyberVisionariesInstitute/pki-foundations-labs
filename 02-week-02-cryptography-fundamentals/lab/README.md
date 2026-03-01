@@ -27,7 +27,7 @@ Each lab builds on the previous one.
 ## Submission Requirements
 
 Create the following structure under the `submissions/` directory:
-submissions/<your-name>/
+submissions/your-name/
 encrypted/
 hashes/
 signatures/
