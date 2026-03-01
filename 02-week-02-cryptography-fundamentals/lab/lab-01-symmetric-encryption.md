@@ -91,14 +91,3 @@ Why does decryption fail?
 CVI PKI Career Pathway — Foundations Phase
 
 
----
-
-This lab:
-
-- Reinforces confidentiality
-- Builds command-line fluency
-- Produces real artifacts
-- Avoids unnecessary screenshot dependence
-- Prepares cleanly for hashing and signing labs
-
-
