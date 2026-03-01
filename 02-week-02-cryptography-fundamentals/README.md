@@ -1,46 +1,48 @@
-# Week 2 — Cryptography Fundamentals Labs
+# Week 2 — Cryptography Fundamentals (Just Enough)
 
-#### Focus: Confidentiality, Integrity, and Authenticity
+## Focus
 
-This week moves from theory to application. You will work directly with the cryptographic primitives that power PKI and secure communications.
+This week builds operational literacy in the core cryptographic primitives that power PKI systems.
 
-By completing these labs, you will demonstrate practical understanding of:
+You will move from conceptual understanding to direct application of:
 
-- **Encryption** → Confidentiality  
-- **Hashing** → Integrity  
-- **Digital Signatures** → Integrity + Authenticity  
+- Symmetric encryption  
+- Hashing  
+- Digital signatures  
 
----
-
-## Lab Overview
-
-| Lab     | Topic                   | Security Property          |
-|---------|-------------------------|----------------------------|
-| Lab 01  | Symmetric Encryption    | Confidentiality            |
-| Lab 02  | Hashing & Integrity     | Integrity                  |
-| Lab 03  | Digital Signatures      | Integrity + Authenticity   |
+These mechanisms form the foundation of certificates, TLS, and digital trust.
 
 ---
 
-## Lab Files
+## Outcomes
 
-Complete each lab in order:
+By the end of this week, you can:
 
-- Lab 01 — Encrypt a File Symmetrically  
-- Lab 02 — Create a Hash of a File  
-- Lab 03 — Digitally Sign and Verify a File  
+- Explain the difference between confidentiality, integrity, and authenticity
+- Encrypt and decrypt data using symmetric encryption
+- Generate and compare cryptographic hashes
+- Digitally sign and verify files
+- Identify why private key protection is critical in PKI systems
 
 ---
 
-## Submission Instructions
+## Deliverables (Submit in Your Portfolio Repo)
 
-### 1. Use the Week 2 submissions folder
+Update the following areas of your repository:
 
-Place all generated artifacts inside:
-02-week-02-cryptography-fundamentals/submissions/
+- `labs/02-week-02-cryptography-fundamentals/`
+- `notes/week-02-key-concepts.md`
+- `reflections/week-02.md`
+
+Place generated cryptographic artifacts inside:
 
 
-Create the following structure if it does not already exist:
+labs/02-week-02-cryptography-fundamentals/submissions/
+
+
+Required artifact folders:
+
+
 submissions/
 encrypted/
 hashes/
@@ -49,57 +51,35 @@ signatures/
 
 ---
 
-### 2. Commit Required Artifacts
+## Artifact Rules
 
-You must commit:
+- Commit actual generated files (not screenshots).
+- Use the `assets/` folder only for documentation images if needed.
+- **Do NOT commit private keys.**
 
-- Encrypted file(s)
-- Decrypted output (if applicable)
-- Hash output files
-- Signature file(s)
-- Public key (if applicable)
-- Short explanations in this Week 2 README
+Private keys must never be stored in version control.
 
 ---
 
-### 3. Artifact Placement Rules
+## Checklist
 
-- Use the `submissions/` folder for generated cryptographic artifacts.
-- Use the `assets/` folder only for screenshots or documentation images.
-- Do not submit screenshots unless explicitly requested.
-
----
-
-### 4. Security Requirement
-
-**Do NOT commit private keys.**
-
-Private keys should never be stored in version control.
+- [ ] Review lesson material
+- [ ] Complete all three labs
+- [ ] Commit required artifacts to the submissions folder
+- [ ] Document findings in notes
+- [ ] Write reflection for Week 2
+- [ ] Commit with a meaningful message
 
 ---
 
-## Completion Criteria
+## What "Good" Looks Like
 
-You are considered complete when:
-
-- All required artifacts are present  
-- Verification commands succeed  
-- Signature verification fails after tampering  
-- You can clearly explain:
-  - What encryption protects  
-  - Why a hash changes when data changes  
-  - Why a digital signature fails after modification  
+- Clear, accurate explanations in your own words
+- Correctly generated and organized cryptographic artifacts
+- Successful verification before tampering
+- Failed verification after tampering
+- Clean and professional repository structure
 
 ---
 
-## Why This Matters
-
-Everything in PKI relies on these primitives:
-
-- Certificates are digitally signed  
-- TLS uses symmetric encryption  
-- Trust validation depends on hashing  
-
-Week 3 builds directly on this foundation with an X.509 certificate deep dive.
-
-Master these fundamentals before moving forward.
+CVI PKI Career Pathway — Foundations Phase
