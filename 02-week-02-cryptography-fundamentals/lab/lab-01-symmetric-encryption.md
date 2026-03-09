@@ -29,7 +29,7 @@ GitHub’s web interface cannot run OpenSSL commands.
 ## Part 2 — Execution Steps
 
 ### Step 1 — Create Artifact Directory
-From the root of your repository:
+From the root of your directory:
 mkdir -p labs/02-week-02-cryptography-fundamentals/submissions/encrypted
 
 ### Step 2 — Create a Plaintext File
