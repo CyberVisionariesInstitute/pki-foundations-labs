@@ -39,8 +39,7 @@ echo "Week 2 Hashing Lab - CVI" > labs/02-week-02-cryptography-fundamentals/subm
 Open the file and confirm it is readable.
 
 ### Step 3 — Generate a SHA-256 Hash
-openssl dgst -sha256 labs/02-week-02-cryptography-fundamentals/submissions/hashes/message.txt \
-> labs/02-week-02-cryptography-fundamentals/submissions/hashes/message.sha256.txt
+openssl dgst -sha256 labs/02-week-02-cryptography-fundamentals/submissions/hashes/message.txt > labs/02-week-02-cryptography-fundamentals/submissions/hashes/message.sha256.txt
 
 Open the hash file and observe:
 - A fixed-length output
