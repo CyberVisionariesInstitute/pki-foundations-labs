@@ -125,12 +125,12 @@ Your file should summarize the extensions you identified and what they mean.
 
 ### Example Artifact Structure
 
-labs/
-   03-week-03-certificate-anatomy/
-        submissions/
-          certificate-inspection/
+labs
+   03-week-03-certificate-anatomy
+        submissions
+          certificate-inspection
             leaf_cert.pem
-          certificate-extensions/
+          certificate-extensions
             extensions-analysis.md
 
 ---
