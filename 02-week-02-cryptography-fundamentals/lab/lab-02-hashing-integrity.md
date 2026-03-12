@@ -52,8 +52,7 @@ echo "tampered" >> labs/02-week-02-cryptography-fundamentals/submissions/hashes/
 Even a single character change is enough.
 
 ### Step 5 — Generate a New Hash
-openssl dgst -sha256 labs/02-week-02-cryptography-fundamentals/submissions/hashes/message.txt \
-> labs/02-week-02-cryptography-fundamentals/submissions/hashes/message_tampered.sha256.txt
+openssl dgst -sha256 labs/02-week-02-cryptography-fundamentals/submissions/hashes/message.txt > labs/02-week-02-cryptography-fundamentals/submissions/hashes/message_tampered.sha256.txt
 
 Compare the two hash outputs.
 
