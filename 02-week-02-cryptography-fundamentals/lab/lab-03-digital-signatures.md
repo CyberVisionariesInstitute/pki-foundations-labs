@@ -39,8 +39,7 @@ mkdir -p labs/02-week-02-cryptography-fundamentals/submissions/signatures
 echo "Week 2 Digital Signature Lab - CVI" > labs/02-week-02-cryptography-fundamentals/submissions/signatures/artifact.txt
 
 ### Step 3 — Generate a Private Key
-openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 \
-  -out labs/02-week-02-cryptography-fundamentals/submissions/signatures/private_key.pem
+openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out labs/02-week-02-cryptography-fundamentals/submissions/signatures/private_key.pem
   
 ### Step 4 — Extract the Public Key
 openssl pkey \
