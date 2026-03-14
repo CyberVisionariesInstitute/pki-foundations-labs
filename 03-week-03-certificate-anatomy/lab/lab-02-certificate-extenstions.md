@@ -113,11 +113,7 @@ Ensure the following file exists:
 
 lab/03-week-03-certificate-anatomy/submissions/certificate-extensions/
 
-Create a file documenting your observations.
-
-Example:
-
-  extensions-analysis.md
+Update certificate-extensions.md in your submissions folder with your observations.
 
 Your file should summarize the extensions you identified and what they mean.
 
