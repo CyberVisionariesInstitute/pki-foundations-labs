@@ -59,13 +59,12 @@ Each certificate block looks like:
 ### Step 3 — Save the Certificates
 Create the following files inside:
 
-  lab/03-week-03-certificate-anatomy/submissions/certificate-chain/
+- lab/03-week-03-certificate-anatomy/submissions/certificate-chain/
+    - server.pem
+    - intermediate.pem
+    - root.pem
 
-Save each certificate separately:
-
-server.pem
-intermediate.pem
-root.pem
+**Save each certificate separately.**
 
 If the root certificate is not included in the output, download it from the issuing CA’s website.
 
@@ -139,9 +138,9 @@ Document the following in your **Week 3 lab notes**:
 Ensure the following files exist:
 
 lab/03-week-03-certificate-anatomy/submissions/certificate-chain/
-  server.pem
-  intermediate.pem
-  root.pem
+  - server.pem
+  - intermediate.pem
+  - root.pem
 
 Update your certificate-chain.md file in your submissions folder with your observations.
 
