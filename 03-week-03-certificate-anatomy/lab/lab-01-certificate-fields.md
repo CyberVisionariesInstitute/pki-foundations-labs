@@ -26,11 +26,11 @@ GitHub’s web interface cannot run OpenSSL commands.
 
 ---
 
-## Part 2 — Execution Steps
+## Part 2 — Execution Steps 
 
 ### Step 1 — Create Artifact Directory
-From the root of your directory:
-mkdir -p labs/03-week-03-certificate-anatomy/submissions/certificate-inspection
+From the root of your local directory on your personal machine:
+mkdir -p lab/03-week-03-certificate-anatomy/submissions/certificate-fields
 
 ### Step 2 — Retrieve a Website Certificate
 Use OpenSSL to connect to a website and retrieve its certificate.
@@ -55,12 +55,12 @@ leaf_cert.pem
 
 Place the file in:
 
-labs/03-week-03-certificate-anatomy/submissions/certificate-inspection/
+lab/03-week-03-certificate-anatomy/submissions/certificate-fields/
 
 ### Step 3 — Parse the Certificate
 Use OpenSSL to inspect the certificate contents.
 
-openssl x509 -in labs/03-week-03-certificate-anatomy/submissions/certificate-inspection/leaf_cert.pem -text -noout
+openssl x509 -in lab/03-week-03-certificate-anatomy/submissions/certificate-fields/leaf_cert.pem -text -noout
 
 This command converts the encoded certificate into a human-readable format.
 
@@ -89,14 +89,14 @@ Document the following in your Week 3 lab notes:
 ### Submission (Portfolio Repo)
 Ensure the following file exists:
 
-labs/03-week-03-certificate-anatomy/submissions/certificate-inspection/
+lab/03-week-03-certificate-anatomy/submissions/certificate-fields/
   leaf_cert.pem
 
 Commit and push your changes.
 
 Example commit message:
 
-Week 3 Lab 01 — Inspect Certificate Fields
+  Week 3 Lab 01 — Inspect Certificate Fields
 
 ## Stretch (Optional)
 Try retrieving a certificate from a different website:
