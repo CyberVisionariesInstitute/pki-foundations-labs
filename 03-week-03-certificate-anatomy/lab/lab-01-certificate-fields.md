@@ -86,17 +86,21 @@ Document the following in your Week 3 lab notes:
 - When the certificate expires
 - Why the issuer field is important in PKI
 
+---
+
 ### Submission (Portfolio Repo)
 Ensure the following file exists:
 
 lab/03-week-03-certificate-anatomy/submissions/certificate-fields/
   leaf_cert.pem
 
-Commit and push your changes.
+Update your certificate-inspection.md file in your submissions folder with your observations.
 
 Example commit message:
 
   Week 3 Lab 01 — Inspect Certificate Fields
+
+---
 
 ## Stretch (Optional)
 Try retrieving a certificate from a different website:
