@@ -28,8 +28,8 @@ GitHub’s web interface cannot run OpenSSL commands.
 ## Part 2 — Execution Steps
 
 ### Step 1 — Create Artifact Directory
-From the root of your directory:
-mkdir -p labs/03-week-03-certificate-anatomy/submissions/certificate-chain
+From the root of your directory on your personal machine:
+- mkdir -p lab/03-week-03-certificate-anatomy/submissions/certificate-chain
 
 ---
 
@@ -59,7 +59,7 @@ Each certificate block looks like:
 ### Step 3 — Save the Certificates
 Create the following files inside:
 
-  labs/03-week-03-certificate-anatomy/submissions/certificate-chain/
+  lab/03-week-03-certificate-anatomy/submissions/certificate-chain/
 
 Save each certificate separately:
 
@@ -138,12 +138,12 @@ Document the following in your **Week 3 lab notes**:
 ### Submission (Portfolio Repo)
 Ensure the following files exist:
 
-labs/03-week-03-certificate-anatomy/submissions/certificate-chain/
+lab/03-week-03-certificate-anatomy/submissions/certificate-chain/
   server.pem
   intermediate.pem
   root.pem
 
-Commit and push your changes.
+Update your certificate-chain.md file in your submissions folder with your observations.
 
 Example commit message:
 
