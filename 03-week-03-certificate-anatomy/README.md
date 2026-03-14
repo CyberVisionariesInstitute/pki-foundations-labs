@@ -30,7 +30,7 @@ Update the following areas of your repository:
 - notes/week-03-key-concepts.md
 - reflections/week-03.md
 
-Before starting the labs, retrieve the templates from the `_templates` directory in the course repository.
+Before starting the labs, retrieve the templates from the pki-foundations-labs/_templates directory in the course repository.
 
 Copy the following files into your portfolio repository:
 
