@@ -30,9 +30,9 @@ GitHub’s web interface cannot run OpenSSL commands.
 ## Part 2 — Execution Steps
 
 ### Step 1 — Create Artifact Directory
-From the root of your repository:
+From the root of your repository on your personal machine:
 
-mkdir -p labs/03-week-03-certificate-anatomy/submissions/live-certificate-analysis
+mkdir -p lab/03-week-03-certificate-anatomy/submissions/live-certificate-analysis
 
 ---
 
@@ -62,14 +62,14 @@ Copy the first certificate block and save it as:
 
 Place the file inside:
 
-labs/03-week-03-certificate-anatomy/submissions/live-certificate-analysis/
+lab/03-week-03-certificate-anatomy/submissions/live-certificate-analysis/
 
 ---
 
 ### Step 4 — Inspect the Certificate
 Run the following command to view the certificate details:
 
-  openssl x509 -in labs/03-week-03-certificate-anatomy/submissions/live-certificate-analysis/github_cert.pem -text -noout
+  openssl x509 -in lab/03-week-03-certificate-anatomy/submissions/live-certificate-analysis/github_cert.pem -text -noout
 
 This command converts the encoded certificate into a human-readable format.
 
@@ -90,13 +90,13 @@ These fields define the **identity and usage rules** of the certificate.
 ---
 
 ## Part 3 — Misconfiguration Scenarios
-Create a file named:
+In your repo create a file named:
 
   live-certificate-analysis.md
 
 Inside the same folder:
 
-  labs/03-week-03-certificate-anatomy/submissions/live-certificate-analysis/
+  lab/03-week-03-certificate-anatomy/submissions/live-certificate-analysis/
 
 Document:
 - The organization the certificate belongs to
@@ -113,8 +113,6 @@ Ensure the following files exist:
 labs/03-week-03-certificate-anatomy/submissions/live-certificate-analysis/
   github_cert.pem
   live-certificate-analysis.md
-
-Commit and push your changes.
 
 Example commit message:
 
