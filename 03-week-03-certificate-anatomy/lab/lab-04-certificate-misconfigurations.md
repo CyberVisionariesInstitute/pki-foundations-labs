@@ -38,13 +38,9 @@ From the root of your directory on your personal machine:
 ## Part 3 — Misconfiguration Scenarios
 Analyze each scenario and determine **why the certificate would fail or cause problems in production systems.**
 
-Document your analysis in a file named:
+Document your analysis in your repo in the submissions folder:
 
-  misconfiguration-analysis.md
-
-Save it inside:
-
-  labs/03-week-03-certificate-anatomy/submissions/misconfiguration-analysis/
+   lab/03-week-03-certificate-anatomy/submissions/misconfiguration-analysis.md
 
 ---
 
@@ -131,12 +127,8 @@ Your misconfiguration-analysis.md file should explain:
 ## Submission (Portfolio Repo)
 Ensure the following file exists:
 
-labs/03-week-03-certificate-anatomy/submissions/misconfiguration-analysis/
-  misconfiguration-analysis.md
-
-Commit and push your changes.
-Example commit message:
-
+lab/03-week-03-certificate-anatomy/submissions/misconfiguration-analysis.md
+ 
   Week 3 Lab 04 — Certificate misconfiguration analysis
 
 ---
