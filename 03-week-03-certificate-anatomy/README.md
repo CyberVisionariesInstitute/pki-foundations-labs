@@ -24,27 +24,43 @@ By the end of this week, you can:
 ---
 
 ## Deliverables (Submit in Your Portfolio Repo)
-
 Update the following areas of your repository:
 
 - labs/03-week-03-certificate-anatomy/
 - notes/week-03-key-concepts.md
 - reflections/week-03.md
 
-Place generated cryptographic artifacts inside:
+Before starting the labs, retrieve the templates from the `_templates` directory in the course repository.
 
+Copy the following files into your portfolio repository:
+
+Templates to copy:
+
+- _templates/lab-submission-template.md
+- _templates/lesson-notes-template.md
+- _templates/reflection-template.md
+
+Use them to create the following files in your repo:
+
+**Lesson Notes**
+notes/week-03-key-concepts.md
+
+**Reflection**
+reflections/week-03.md
+
+**Lab Submissions**
+Create your lab write-ups using the lab submission template inside each lab folder.
+
+Place generated cryptographic artifacts inside:
 
 labs/03-week-03-certificate-anatomy/submissions/
 
-
 Required artifact folders:
-
-
-submissions/
-certificate-inspection/
-certificate-extensions/
-certificate-chain/
-misconfiguration-analysis/
+- submissions/
+- certificate-inspection/
+- certificate-extensions/
+- certificate-chain/
+- misconfiguration-analysis/
 
 
 ---
