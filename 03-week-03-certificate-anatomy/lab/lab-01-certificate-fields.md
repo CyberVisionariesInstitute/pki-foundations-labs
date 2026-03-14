@@ -30,7 +30,7 @@ GitHub’s web interface cannot run OpenSSL commands.
 
 ### Step 1 — Create Artifact Directory
 From the root of your local directory on your personal machine:
-mkdir -p lab/03-week-03-certificate-anatomy/submissions/certificate-fields
+- mkdir -p lab/03-week-03-certificate-anatomy/submissions/certificate-fields
 
 ### Step 2 — Retrieve a Website Certificate
 Use OpenSSL to connect to a website and retrieve its certificate.
