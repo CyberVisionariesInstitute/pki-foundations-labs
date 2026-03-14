@@ -54,11 +54,11 @@ Place all generated artifacts inside:
 
 Create the following structure if it does not already exist:
 submissions/
-certificate-inspection/
-certificate-extensions/
-certificate-chain/
-misconfiguration-analysis/
-live-certificate-analysis/
+certificate-inspection.md
+certificate-extensions.md
+certificate-chain.md
+misconfiguration-analysis.md
+live-certificate-analysis.md
 
 
 ---
