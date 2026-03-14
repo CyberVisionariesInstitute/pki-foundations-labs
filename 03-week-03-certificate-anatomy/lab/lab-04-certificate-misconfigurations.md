@@ -30,8 +30,8 @@ This lab focuses on **analysis and troubleshooting**, not generating new cryptog
 ## Part 2 — Execution Steps
 
 ### Step 1 — Create Artifact Directory
-From the root of your directory:
-mkdir -p labs/03-week-03-certificate-anatomy/submissions/misconfiguration-analysis
+From the root of your directory on your personal machine:
+- mkdir -p lab/03-week-03-certificate-anatomy/submissions/misconfiguration-analysis
 
 ---
 
