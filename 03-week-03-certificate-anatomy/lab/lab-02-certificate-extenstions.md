@@ -29,16 +29,16 @@ GitHub’s web interface cannot run OpenSSL commands.
 
 ### Step 1 — Create Artifact Directory
 From the root of your directory:
-mkdir -p labs/03-week-03-certificate-anatomy/submissions/certificate-extensions
+- mkdir -p lab/03-week-03-certificate-anatomy/submissions/certificate-extensions
 
 ---
 
 ### Step 2 — Use the Certificate From Lab 01
-You will reuse the certificate retrieved in **Lab 01.**
+You will reuse the certificate retrieved in **Lab 01**
 
 Expected location:
 
-labs/03-week-03-certificate-anatomy/submissions/certificate-inspection/leaf_cert.pem
+lab/03-week-03-certificate-anatomy/submissions/certificate-fields/leaf_cert.pem
 
 Confirm the file exists before continuing.
 
@@ -47,7 +47,7 @@ Confirm the file exists before continuing.
 ### Step 3 — Inspect the Certificate Extensions
 Run the following command:
 
-openssl x509 -in labs/03-week-03-certificate-anatomy/submissions/certificate-inspection/leaf_cert.pem -text -noout
+openssl x509 -in lab/03-week-03-certificate-anatomy/submissions/certificate-fields/leaf_cert.pem -text -noout
 
 Scroll through the output until you find the **X509v3 extensions section.**
 
@@ -111,7 +111,7 @@ Document the following in your **Week 3 lab notes**:
 ### Submission (Portfolio Repo)
 Ensure the following file exists:
 
-labs/03-week-03-certificate-anatomy/submissions/certificate-extensions/
+lab/03-week-03-certificate-anatomy/submissions/certificate-extensions/
 
 Create a file documenting your observations.
 
@@ -131,7 +131,7 @@ labs
    
         submissions
         
-          certificate-inspection
+          certificate-fields
           
             leaf_cert.pem
             
