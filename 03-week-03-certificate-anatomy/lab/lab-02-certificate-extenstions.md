@@ -28,7 +28,7 @@ GitHub’s web interface cannot run OpenSSL commands.
 ## Part 2 — Execution Steps
 
 ### Step 1 — Create Artifact Directory
-From the root of your directory:
+From the root of your directory on your personal machine:
 - mkdir -p lab/03-week-03-certificate-anatomy/submissions/certificate-extensions
 
 ---
