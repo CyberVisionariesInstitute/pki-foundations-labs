@@ -14,9 +14,9 @@ This lab reinforces the identity model introduced in Lesson 3.
 Option A — OpenSSL (Recommended)
 
 Run:
-
 openssl genrsa -out private.key 2048
 
+Run:
 openssl rsa -in private.key -pubout -out public.key
 
 You should now have:
