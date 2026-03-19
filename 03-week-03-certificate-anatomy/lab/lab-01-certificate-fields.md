@@ -88,18 +88,63 @@ Document the following in your Week 3 lab notes:
 
 ---
 
-### Submission (Portfolio Repo)
-Ensure the following file exists:
+## Submission
 
-lab/03-week-03-certificate-anatomy/submissions/certificate-fields/
+### What to Submit
+You will submit two things to your portfolio repo:
+
+1. **`leaf_cert.pem`** — the raw certificate file you retrieved from Google
+2. **`lab-01-certificate-fields.md`** — your completed observations file
+
+### Step 1 — Set Up Your Folder
+In your local repo, create the submissions folder if it doesn't exist:
+
+mkdir -p labs/week-03/submissions
+
+### Step 2 — Move Your Files
+Place both files in that folder:
+
+labs/week-03/submissions/
   leaf_cert.pem
+  lab-01-certificate-fields.md
 
-Update your certificate-inspection.md file in your submissions folder with your observations.
+### Step 3 — Complete Your Observations File
+Open `lab-01-certificate-fields.md` and fill in the following:
 
-Example commit message:
+# Lab 01 — Inspect X.509 Certificate Fields
 
-  Week 3 Lab 01 — Inspect Certificate Fields
+## Overview
+Briefly describe what this lab was about in your own words.
 
+## Certificate Fields Found
+| Field                | Value from your output |
+|----------------------|------------------------|
+| Version              |                        |
+| Serial Number        |                        |
+| Signature Algorithm  |                        |
+| Issuer               |                        |
+| Subject              |                        |
+| Not Before           |                        |
+| Not After            |                        |
+| Public Key Algorithm |                        |
+
+## Observations
+- Who issued the certificate?
+- What domain or organization does it represent?
+- When does it expire?
+- Why does the Issuer field matter in PKI?
+
+### Step 4 — Commit and Push
+git add labs/week-03/submissions/
+git commit -m "Week 3 Lab 01 — Inspect Certificate Fields"
+git push
+
+### Step 5 — Submit in the CVI Lab Tracker
+1. Log in to the CVI Lab Tracker
+2. Go to Week 3 → Lab 01: Certificate Fields
+3. Copy the file path shown on the lab card
+4. Confirm your file is saved at that exact path in your repo
+5. Click **Submit**
 ---
 
 ## Stretch (Optional)
