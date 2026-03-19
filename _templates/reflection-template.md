@@ -1,7 +1,8 @@
 # Week X Reflection
 
 Submit this in your portfolio repository:
-reflections/week-XX.md
+
+`reflections/week-XX.md` (e.g. `reflections/week-03.md`)
 
 ---
 
@@ -17,6 +18,10 @@ reflections/week-XX.md
 
 ## Professional Growth Check
 
-- Did you document clearly?
-- Did you use structured formatting?
-- Was your commit message meaningful?
+- [ ] I documented my work clearly and in my own words
+- [ ] I used structured formatting in my submission files
+- [ ] My commit message was meaningful and descriptive
+
+---
+
+*CVI PKI Career Pathway — Foundations Phase*
