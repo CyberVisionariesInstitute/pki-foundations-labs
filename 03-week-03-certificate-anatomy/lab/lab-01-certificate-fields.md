@@ -187,11 +187,26 @@ What PKI concept were you investigating?
 
 ### Step 4 — Commit and push to GitHub
 
+Choose **one** of the following methods:
+
+**Option A — Terminal (Git CLI)**
+
 ```bash
 git add labs/week-03/submissions/
 git commit -m "Week 3 Lab 01 — Inspect Certificate Fields"
 git push
 ```
+
+**Option B — GitHub Web (Upload via Browser)**
+
+1. Go to your repo on [github.com](https://github.com)
+2. Navigate to `labs/week-03/submissions/` — if the folder doesn't exist yet, see the note below
+3. Click **Add file → Upload files**
+4. Drag and drop `leaf_cert.pem` and `lab-01-certificate-fields.md` into the upload area
+5. Scroll down to **Commit changes**, enter a message like `Week 3 Lab 01 — Inspect Certificate Fields`, and click **Commit changes**
+
+> **Don't see the submissions folder yet?** GitHub won't let you create empty folders through the web UI. Instead, click **Add file → Create new file**, then type the full path in the filename field: `labs/week-03/submissions/lab-01-certificate-fields.md`. This creates the folder and file at the same time. Upload your `.pem` file separately using **Add file → Upload files** once the folder exists.
+
 
 ---
 
