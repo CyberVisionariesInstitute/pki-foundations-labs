@@ -1,136 +1,109 @@
-# Week 3 — X.509 Certificate Anatomy Labs
+# Week 3 — X.509 Certificate Anatomy
 
-#### Focus: Certificate Structure, Extensions, and Trust Chains
+## Focus
 
-This week moves from cryptographic primitives to the identity layer of PKI.
+This week focuses on learning how to read and interpret X.509 certificates used in Public Key Infrastructure systems.
 
-You will work directly with X.509 certificates, examining how certificates represent identity, define usage rules, and establish trust relationships between systems.
+You will examine the structure of digital certificates and learn how certificate fields and extensions define identity, trust relationships, and permitted usage.
 
-By completing these labs, you will demonstrate practical understanding of:
-
-- **Certificate Structure** → Identity representation
-- **Certificate Extensions** → Usage and validation rules
-- **Certificate Chains** → Trust relationships
-- **Certificate Misconfigurations** → TLS troubleshooting
+Through hands-on analysis, you will inspect real certificates, analyze certificate extensions, and understand how certificate chains establish trust across systems.
 
 ---
 
-## Lab Overview
+## Outcomes
 
-| Lab                 | Topic                                       | PKI Concept                         |
-|---------------------|---------------------------------------------|-------------------------------------|
-| Lab 01              | Inspect Certificate Fields                  | Certificate Structure               |
-| Lab 02              | Investigate Certificate Extensions          | SAN, EKU, Key Usage                 |
-| Lab 03              | Verify Certificate Chains                   | Root → Intermediate → Leaf          |
-| Lab 04              | Detect Certificate Misconfigurations        | TLS Failure Analysis                |
-| Lab 05 (Optional)   | Extract Certificate from a Live Website     | Real-World Certificate Inspection   |
+By the end of this week, you can:
 
-
----
-
-## Lab Files
-
-Complete each lab in order:
-
-- **Lab 01 — Inspect Core Certificate Fields**
-- **Lab 02 — Investigate Certificate Extensions**
-- **Lab 03 — Build and Verify a Certificate Chain**
-- **Lab 04 — Detect Certificate Misconfigurations**
-
-Optional challenge:
-- **Lab 05 — Extract a Certificate from a Live Website**
-
-Each lab builds on the previous one, moving from **reading certificates → understanding certificate usage → validating trust → troubleshooting certificate failures.**
+- Identify the core fields of an X.509 certificate
+- Explain the purpose of certificate extensions
+- Interpret Subject Alternative Name (SAN), Key Usage, and Extended Key Usage
+- Distinguish between root, intermediate, and leaf certificates
+- Validate a certificate chain using OpenSSL
+- Recognize common certificate misconfigurations that cause TLS failures
 
 ---
 
-## Submission Instructions
+## Deliverables (Submit in Your Portfolio Repo)
 
-### 1. Use the Week 2 submissions folder
+Update the following areas of your repository:
 
-Place all generated artifacts inside:
-03-week-03-certificate-anatomy/submissions/
+- `labs/week-03/`
+- `notes/week-03-key-concepts.md`
+- `reflections/week-03.md`
 
+Before starting the labs, retrieve the templates from the `pki-foundations-labs/_templates` directory in the course repository.
 
-Create the following structure if it does not already exist:
-- submissions/
-  - certificate-inspection.md
-  - certificate-extensions.md
-  - certificate-chain.md
-  - misconfiguration-analysis.md
-  - live-certificate-analysis.md
+Copy the following files into your portfolio repository:
 
+- `_templates/lab-submission-template.md`
+- `_templates/lesson-notes-template.md`
+- `_templates/reflection-template.md`
 
----
+Use them to create the following files in your repo:
 
-### 2. Commit Required Artifacts
+**Lesson Notes**
+`notes/week-03-key-concepts.md`
 
-You must commit:
+**Reflection**
+`reflections/week-03.md`
 
-- Certificate files used for inspection
-- Command outputs where applicable
-- Notes explaining certificate attributes
-- Evidence of certificate chain verification
-- Observations about certificate misconfigurations
+**Lab Submissions**
+Create your lab write-ups inside each lab folder and place completed files in:
 
----
+`labs/week-03/submissions/`
 
-### 3. Artifact Placement Rules
+Your submissions folder should contain:
 
-- Use the submissions/ folder for generated certificate artifacts.
-- Use the assets/ folder only for screenshots or documentation images.
-- Do not submit screenshots unless explicitly requested.
-- Clearly label all analysis or explanation files.
-
----
-
-### 4. Security Requirement
-
-Even when working with certificates:
-
-**Do NOT commit private keys to version control.**
-
-Private keys must always remain protected.
-
----
-
-## Completion Criteria
-
-You are considered complete when:
-
-- All required artifacts are present
-- Certificate fields and extensions are correctly identified
-- Certificate chains validate successfully
-- You can clearly explain:
-  - The purpose of core certificate fields
-  - How certificate extensions control usage
-  - How trust is established through certificate chains
-  - How misconfigured certificates cause TLS failures
+```
+labs/
+  week-03/
+    submissions/
+      leaf_cert.pem
+      lab-01-certificate-fields.md
+      lab-02-certificate-extensions.md
+      server.pem
+      intermediate.pem
+      root.pem
+      lab-03-certificate-chain.md
+      lab-04-certificate-misconfigurations.md
+      github_cert.pem                      ← Lab 05 only (optional)
+      lab-05-extract-live-certificate.md   ← Lab 05 only (optional)
+```
 
 ---
 
-## What "Good" Looks Like 
+## Artifact Rules
 
-- Clear explanations written in your own words
+- Commit actual certificate files or outputs where applicable.
+- Use the `assets/` folder only for documentation images if needed.
+- Do not modify provided certificate artifacts unless instructed.
+- Clearly label any notes or analysis related to the certificate inspection.
+- **Private keys must never be stored in version control.**
+
+---
+
+## Checklist
+
+- [ ] Review lesson material
+- [ ] Inspect certificate structure using OpenSSL
+- [ ] Identify key certificate fields and extensions
+- [ ] Analyze SAN, Key Usage, EKU, and Basic Constraints
+- [ ] Verify a certificate chain
+- [ ] Document findings in notes
+- [ ] Write reflection for Week 3
+- [ ] Submit all labs in the CVI Lab Tracker
+- [ ] Commit with a meaningful message
+
+---
+
+## What "Good" Looks Like
+
 - Correct identification of certificate fields and extensions
-- Successful verification of certificate chains
-- Ability to recognize certificate misconfigurations
-- Clean and organized repository structure
+- Clear explanations of certificate attributes in your own words
+- Successful validation of a certificate chain
+- Ability to identify certificate misconfigurations
+- Organized repository structure with clearly labeled artifacts
 
 ---
 
-## Why This Matters
-Certificates are the foundation of **secure identity on the internet.**
-
-Understanding how to read and validate certificates is a critical skill for:
-
-- PKI Engineers
-- Security Engineers
-- Cloud Security Architects
-- DevSecOps Engineers
-
-Everything from **HTTPS websites to cloud authentication systems** depends on certificates working correctly.
-
----
-
-CVI PKI Career Pathway — Foundations Phase
+*CVI PKI Career Pathway — Foundations Phase*
