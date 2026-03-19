@@ -37,11 +37,29 @@ Examples may include:
 - Verification results
 - Screenshots (if applicable)
 
-If you include screenshots, store them in the **assets folder** and reference them here.
+If you include screenshots, store them in `assets/screenshots/` at the root of your repo and reference them here.
 
-Example:
+**How to embed an image:**
 
-![Lab Output](assets/lab-output.png)
+**Option A — Terminal / Local Editor**
+
+Save your screenshot to `assets/screenshots/` in your repo, then reference it using a relative path from your submission file:
+
+```markdown
+![Description of your screenshot](../../../assets/screenshots/your-filename.png)
+```
+
+> The `../../../` moves up three levels: `submissions/` → `week-03/` → `labs/` → repo root, then into `assets/screenshots/`.
+
+**Option B — GitHub Web (Easiest)**
+
+Open your `.md` file on GitHub, click the pencil icon to edit, then **drag and drop your image directly into the text editor**. GitHub will upload it automatically and insert the correct link for you.
+
+Example of what an embedded image looks like:
+
+```markdown
+![Certificate output showing SAN field](../../../assets/screenshots/san-field.png)
+```
 
 ---
 
@@ -91,7 +109,7 @@ Examples:
 
 - Any `.pem`, `.crt`, or `.key` files produced
 - Your completed lab write-up `.md` file
-- Screenshots stored in `assets/`
+- Screenshots stored in `assets/screenshots/`
 
 ---
 
