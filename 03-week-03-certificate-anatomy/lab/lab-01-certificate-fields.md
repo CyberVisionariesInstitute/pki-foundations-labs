@@ -32,6 +32,8 @@ GitHub’s web interface cannot run OpenSSL commands.
 From the root of your local directory on your personal machine:
 - mkdir -p lab/03-week-03-certificate-anatomy/submissions/certificate-fields
 
+---
+
 ### Step 2 — Retrieve a Website Certificate
 Use OpenSSL to connect to a website and retrieve its certificate.
 
@@ -57,12 +59,16 @@ Place the file in:
 
 lab/03-week-03-certificate-anatomy/submissions/certificate-fields/
 
+---
+
 ### Step 3 — Parse the Certificate
 Use OpenSSL to inspect the certificate contents.
 
 openssl x509 -in lab/03-week-03-certificate-anatomy/submissions/certificate-fields/leaf_cert.pem -text -noout
 
 This command converts the encoded certificate into a human-readable format.
+
+---
 
 ### Step 4 — Identify Core Certificate Fields
 Locate and record the following fields in the output:
