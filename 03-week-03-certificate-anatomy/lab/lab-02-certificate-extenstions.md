@@ -1,4 +1,4 @@
-# Lab — Investigate Certificate Extensions
+# Lab 02 — Investigate Certificate Extensions
 
 ## Goal
 
@@ -12,144 +12,231 @@ You will:
 
 ---
 
-## Part 1 — Setup
-
-### Prerequisites
+## Prerequisites
 
 - OpenSSL installed
 - Access to a local terminal (Mac Terminal, Git Bash, or WSL)
 - Completion of **Lab 01 — Inspect Certificate Fields**
+- Your `leaf_cert.pem` file saved from Lab 01
 
-All commands must be executed locally.  
-GitHub’s web interface cannot run OpenSSL commands.
-
----
-
-## Part 2 — Execution Steps
-
-### Step 1 — Create Artifact Directory
-From the root of your directory on your personal machine:
-- mkdir -p lab/03-week-03-certificate-anatomy/submissions/certificate-extensions
+> **Note:** All commands must be run locally in your terminal.
+> GitHub's web interface cannot execute OpenSSL commands.
 
 ---
 
-### Step 2 — Use the Certificate From Lab 01
-You will reuse the certificate retrieved in **Lab 01**
+## Part 1 — Inspect Certificate Extensions
 
-Expected location:
+### Step 1 — Use your certificate from Lab 01
 
-lab/03-week-03-certificate-anatomy/submissions/certificate-fields/leaf_cert.pem
+You will reuse the `leaf_cert.pem` file saved in Lab 01. Confirm it exists on your machine before continuing.
 
-Confirm the file exists before continuing.
+### Step 2 — Run the inspection command
 
----
+```bash
+openssl x509 -in leaf_cert.pem -text -noout
+```
 
-### Step 3 — Inspect the Certificate Extensions
-Run the following command:
-
-openssl x509 -in lab/03-week-03-certificate-anatomy/submissions/certificate-fields/leaf_cert.pem -text -noout
-
-Scroll through the output until you find the **X509v3 extensions section.**
+Scroll through the output until you find the **X509v3 extensions** section.
 
 ---
 
-### Step 4 — Identify Key Extensions
-Locate and record the following extensions:
+## Part 2 — Identify Key Extensions
 
-**Subject Alternative Name (SAN)**
+Locate and record the following four extensions:
 
-Example:
+### Subject Alternative Name (SAN)
+Defines which domains the certificate is valid for.
 
+Example output:
+```
 X509v3 Subject Alternative Name:
-DNS:google.com, DNS:www.google.com
-
-This extension defines **which domains the certificate is valid for.**
+    DNS:google.com, DNS:www.google.com
+```
 
 ---
 
 ### Key Usage
+Defines which cryptographic operations the certificate can perform.
 
-Example:
-
+Example output:
+```
 X509v3 Key Usage:
-Digital Signature, Key Encipherment
-
-This extension defines **which cryptographic operations the certificate can perform.**
+    Digital Signature, Key Encipherment
+```
 
 ---
 
 ### Extended Key Usage (EKU)
-Example:
+Defines what the certificate is allowed to authenticate.
 
-  X509v3 Extended Key Usage:
-  TLS Web Server Authentication
-
-This extension defines **what the certificate is allowed to authenticate.**
+Example output:
+```
+X509v3 Extended Key Usage:
+    TLS Web Server Authentication
+```
 
 ---
 
 ### Basic Constraints
-Example:
+Determines whether the certificate can act as a Certificate Authority.
 
-  X509v3 Basic Constraints:
-  CA:FALSE
-
-This field determines whether the certificate can act as a **Certificate Authority.**
-
----
-
-## Part 3 — Observations
-Document the following in your **Week 3 lab notes**:
-- What domains appear in the SAN field
-- What operations are listed in Key Usage
-- What applications are listed in Extended Key Usage
-- Whether the certificate can issue other certificates
-- Why these extensions are important for TLS validation
+Example output:
+```
+X509v3 Basic Constraints:
+    CA:FALSE
+```
 
 ---
 
-### Submission (Portfolio Repo)
-Ensure the following file exists:
+## Part 3 — Record Your Observations
 
-lab/03-week-03-certificate-anatomy/submissions/certificate-extensions/
+Answer the following in your submission file (see Submission section below):
 
-Update certificate-extensions.md in your submissions folder with your observations.
-
-Your file should summarize the extensions you identified and what they mean.
-
----
-
-### Example Artifact Structure
-
-labs
-
-   03-week-03-certificate-anatomy
-   
-        submissions
-        
-          certificate-fields
-          
-            leaf_cert.pem
-            
-          certificate-extensions
-          
-            extensions-analysis.md
+- What domains appear in the SAN field?
+- What operations are listed in Key Usage?
+- What applications are listed in Extended Key Usage?
+- Can this certificate issue other certificates? How do you know?
+- Why are these extensions important for TLS validation?
 
 ---
 
-## Stretch (Optional)
+## Submission
+
+### What you need to submit
+
+| File | Description |
+|---|---|
+| `lab-02-certificate-extensions.md` | Your completed observations |
+
+> You do not need to submit `leaf_cert.pem` again — it was already submitted in Lab 01.
+
+---
+
+### Step 1 — Confirm your submissions folder exists
+
+Your folder should already exist from Lab 01 at:
+
+```
+labs/week-03/submissions/
+```
+
+If it does not exist, create it:
+
+```bash
+mkdir -p labs/week-03/submissions
+```
+
+---
+
+### Step 2 — Complete your observations file
+
+Create `lab-02-certificate-extensions.md` in `labs/week-03/submissions/` and fill in the template below:
+
+```markdown
+# Lab 02 — Investigate Certificate Extensions
+
+## Overview
+Briefly describe what this lab was about in your own words.
+What PKI concept were you investigating?
+
+---
+
+## Environment
+- OS:
+- Terminal used (Mac Terminal / Git Bash / WSL):
+- OpenSSL version (`openssl version`):
+
+---
+
+## Extensions Found
+
+### Subject Alternative Name (SAN)
+Paste the value from your output:
+
+### Key Usage
+Paste the value from your output:
+
+### Extended Key Usage (EKU)
+Paste the value from your output:
+
+### Basic Constraints
+Paste the value from your output:
+
+---
+
+## Observations
+
+1. What domains appear in the SAN field?
+2. What operations are permitted by Key Usage?
+3. What applications are authorized by EKU?
+4. Can this certificate issue other certificates? How do you know?
+5. Why are these extensions important for TLS validation?
+```
+
+---
+
+### Step 3 — Confirm your folder structure
+
+```
+labs/
+  week-03/
+    submissions/
+      leaf_cert.pem          ← from Lab 01
+      lab-01-certificate-fields.md    ← from Lab 01
+      lab-02-certificate-extensions.md  ← this lab
+```
+
+---
+
+### Step 4 — Commit and push to GitHub
+
+Choose **one** of the following methods:
+
+**Option A — Terminal (Git CLI)**
+
+```bash
+git add labs/week-03/submissions/
+git commit -m "Week 3 Lab 02 — Investigate Certificate Extensions"
+git push
+```
+
+**Option B — GitHub Web (Upload via Browser)**
+
+1. Go to your repo on [github.com](https://github.com)
+2. Navigate to `labs/week-03/submissions/`
+3. Click **Add file → Upload files**
+4. Drag and drop `lab-02-certificate-extensions.md` into the upload area
+5. Scroll down to **Commit changes**, enter a message like `Week 3 Lab 02 — Investigate Certificate Extensions`, and click **Commit changes**
+
+> **Don't see the submissions folder yet?** Click **Add file → Create new file**, then type the full path in the filename field: `labs/week-03/submissions/lab-02-certificate-extensions.md`. This creates the folder and file at the same time.
+
+---
+
+### Step 5 — Submit in the CVI Lab Tracker
+
+1. Log in at [cvi-lab-tracker.lovable.app](https://cvi-lab-tracker.lovable.app)
+2. Go to **Week 3 → Lab 02: Certificate Extensions**
+3. Click **Copy** next to the file path — confirm your file is at that exact location
+4. Click **Submit**
+
+> Your submission is not complete until you click Submit in the tracker.
+
+---
+
+## Stretch Goal (Optional)
+
 Retrieve a certificate from a different website:
 
-  openssl s_client -connect github.com:443 -showcerts
+```bash
+openssl s_client -connect github.com:443 -showcerts
+```
 
-Inspect the extensions and compare them to the certificate used in this lab.
-
-Questions to consider:
+Compare its extensions to the Google certificate and consider:
 - Do both certificates contain similar SAN entries?
-- Do both certificates allow the same Extended Key Usage?
+- Do both allow the same Extended Key Usage?
 - Are there any additional extensions present?
 
 ---
 
-CVI PKI Career Pathway — Foundations Phase
+*CVI PKI Career Pathway — Foundations Phase*
 
