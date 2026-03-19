@@ -1,147 +1,241 @@
-# Lab — Extract a Certificate from a Live Website (Optional)
+# Lab 05 — Extract a Certificate from a Live Website (Optional)
 
 ## Goal
 
-This optional lab demonstrates how to retrieve and inspect a live TLS certificate from a website.
+This optional lab demonstrates how to retrieve and inspect a live TLS certificate from a website — mirroring how security engineers analyze certificates during TLS troubleshooting and incident response.
 
 You will:
 - Connect to a website using OpenSSL
 - Retrieve the certificate presented during the TLS handshake
 - Save the certificate locally
-- Inspect the certificate fields and extensions
-
-This process mirrors how security engineers analyze certificates during **TLS troubleshooting and incident response.**
+- Inspect its fields and extensions
 
 ---
 
-## Part 1 — Setup
+## Prerequisites
 
-### Prerequisites
 - OpenSSL installed
 - Access to a local terminal (Mac Terminal, PowerShell, Git Bash, or WSL)
 - Completion of **Lab 01 and Lab 02 recommended**
 
-All commands must be executed locally.
-
-GitHub’s web interface cannot run OpenSSL commands.
-
----
-
-## Part 2 — Execution Steps
-
-### Step 1 — Create Artifact Directory
-From the root of your repository on your personal machine:
-
-mkdir -p lab/03-week-03-certificate-anatomy/submissions/live-certificate-analysis
+> **Note:** All commands must be run locally in your terminal.
+> GitHub's web interface cannot execute OpenSSL commands.
 
 ---
 
-### Step 2 — Connect to a Website
-Use OpenSSL to establish a TLS connection and retrieve the certificate chain.
+## Part 1 — Retrieve a Live Certificate
 
-Run:
+### Step 1 — Connect to a website
 
-  openssl s_client -connect github.com:443 -showcerts
+```bash
+openssl s_client -connect github.com:443 -showcerts
+```
 
-You will see several certificate blocks printed in the terminal.
+You will see several certificate blocks in the terminal output.
 
-Each certificate block will look like:
+The **first certificate block** is the **leaf certificate** — the one issued directly to the website.
 
+It looks like:
+
+```
 -----BEGIN CERTIFICATE-----
 ...
 -----END CERTIFICATE-----
+```
 
-The **first certificate in the list** is the **leaf certificate** used by the website.
+### Step 2 — Save the certificate
 
----
-
-### Step 3 — Save the Certificate
 Copy the first certificate block and save it as:
 
-  github_cert.pem
+```
+github_cert.pem
+```
 
-Place the file inside:
-
-lab/03-week-03-certificate-anatomy/submissions/live-certificate-analysis/
-
----
-
-### Step 4 — Inspect the Certificate
-Run the following command to view the certificate details:
-
-  openssl x509 -in lab/03-week-03-certificate-anatomy/submissions/live-certificate-analysis/github_cert.pem -text -noout
-
-This command converts the encoded certificate into a human-readable format.
+Place the file anywhere accessible on your local machine — you will move it to your repo in the Submission section.
 
 ---
 
-### Step 5 — Analyze the Certificate
-Identify the following information:
-- **Subject**
-- **Issuer**
-- **Validity Period**
-- **Public Key Algorithm**
-- **Subject Alternative Name (SAN)**
-- **Key Usage**
-- **Extended Key Usage**
+## Part 2 — Inspect the Certificate
 
-These fields define the **identity and usage rules** of the certificate.
+### Step 3 — Parse the certificate
 
----
+```bash
+openssl x509 -in github_cert.pem -text -noout
+```
 
-## Part 3 — Misconfiguration Scenarios
-In your repo create a file named:
+### Step 4 — Locate and record these fields
 
-  live-certificate-analysis.md
-
-Inside the same folder:
-
-  lab/03-week-03-certificate-anatomy/submissions/live-certificate-analysis/
-
-Document:
-- The organization the certificate belongs to
-- Which certificate authority issued the certificate
-- The expiration date of the certificate
-- The domains listed in the SAN field
-- What the certificate is allowed to be used for
+| Field | What to look for |
+|---|---|
+| Subject | Who the cert is issued to |
+| Issuer | The CA that signed it |
+| Not Before / Not After | Validity window |
+| Public Key Algorithm | e.g., `rsaEncryption` |
+| Subject Alternative Name | Domains covered |
+| Key Usage | Permitted operations |
+| Extended Key Usage | Authorized applications |
 
 ---
 
-## Submission (Portfolio Repo)
-Ensure the following files exist:
+## Part 3 — Record Your Observations
 
-labs/03-week-03-certificate-anatomy/submissions/live-certificate-analysis/
-  github_cert.pem
-  live-certificate-analysis.md
+Answer the following in your submission file (see Submission section below):
 
-Example commit message:
-
-  Week 3 Lab 05 — Extract and analyze live TLS certificate
+- What organization does this certificate belong to?
+- Which Certificate Authority issued it?
+- When does it expire?
+- What domains are listed in the SAN field?
+- What is the certificate authorized to be used for?
 
 ---
 
-## Stretch (Optional)
-Retrieve certificates from additional websites:
+## Submission
 
-  openssl s_client -connect google.com:443 -showcerts
-  openssl s_client -connect cloudflare.com:443 -showcerts
+### What you need to submit
 
-Compare the certificates and consider:
-- Do they use the same certificate authority?
+| File | Description |
+|---|---|
+| `github_cert.pem` | The raw certificate retrieved from GitHub |
+| `lab-05-extract-live-certificate.md` | Your completed observations |
+
+---
+
+### Step 1 — Confirm your submissions folder exists
+
+```
+labs/week-03/submissions/
+```
+
+If it does not exist:
+
+```bash
+mkdir -p labs/week-03/submissions
+```
+
+---
+
+### Step 2 — Complete your observations file
+
+Create `lab-05-extract-live-certificate.md` in `labs/week-03/submissions/` and fill in the template:
+
+```markdown
+# Lab 05 — Extract a Certificate from a Live Website
+
+## Overview
+Briefly describe what this lab was about in your own words.
+What PKI concept were you investigating?
+
+---
+
+## Environment
+- OS:
+- Terminal used (Mac Terminal / PowerShell / Git Bash / WSL):
+- OpenSSL version (`openssl version`):
+- Website used: github.com
+
+---
+
+## Certificate Fields Found
+
+| Field                    | Value from your output |
+|--------------------------|------------------------|
+| Subject                  |                        |
+| Issuer                   |                        |
+| Not Before               |                        |
+| Not After                |                        |
+| Public Key Algorithm     |                        |
+| Subject Alternative Name |                        |
+| Key Usage                |                        |
+| Extended Key Usage       |                        |
+
+---
+
+## Observations
+
+1. What organization does this certificate belong to?
+2. Which Certificate Authority issued it?
+3. When does it expire?
+4. What domains are listed in the SAN field?
+5. What is this certificate authorized to be used for?
+```
+
+---
+
+### Step 3 — Confirm your folder structure
+
+```
+labs/
+  week-03/
+    submissions/
+      github_cert.pem
+      lab-05-extract-live-certificate.md
+```
+
+---
+
+### Step 4 — Commit and push to GitHub
+
+Choose **one** of the following methods:
+
+**Option A — Terminal (Git CLI)**
+
+```bash
+git add labs/week-03/submissions/
+git commit -m "Week 3 Lab 05 — Extract and analyze live TLS certificate"
+git push
+```
+
+**Option B — GitHub Web (Upload via Browser)**
+
+1. Go to your repo on [github.com](https://github.com)
+2. Navigate to `labs/week-03/submissions/`
+3. Click **Add file → Upload files**
+4. Drag and drop `github_cert.pem` and `lab-05-extract-live-certificate.md` into the upload area
+5. Scroll down to **Commit changes**, enter a message like `Week 3 Lab 05 — Extract and analyze live TLS certificate`, and click **Commit changes**
+
+> **Don't see the submissions folder yet?** Click **Add file → Create new file**, then type the full path in the filename field: `labs/week-03/submissions/lab-05-extract-live-certificate.md`. This creates the folder and file at the same time. Then upload the `.pem` file separately using **Add file → Upload files**.
+
+---
+
+### Step 5 — Submit in the CVI Lab Tracker
+
+1. Log in at [cvi-lab-tracker.lovable.app](https://cvi-lab-tracker.lovable.app)
+2. Go to **Week 3 → Lab 05: Extract Live Certificate (Optional)**
+3. Click **Copy** next to the file path — confirm your file is at that exact location
+4. Click **Submit**
+
+> Your submission is not complete until you click Submit in the tracker.
+
+---
+
+## Stretch Goal (Optional)
+
+Retrieve certificates from additional websites and compare them:
+
+```bash
+openssl s_client -connect google.com:443 -showcerts
+openssl s_client -connect cloudflare.com:443 -showcerts
+```
+
+Consider:
+- Do they use the same Certificate Authority?
 - Do they use the same public key algorithm?
 - Do they contain similar SAN entries?
+- Do their expiration dates differ significantly?
 
 ---
 
 ## Why This Matters
-Security engineers frequently inspect certificates from live systems when troubleshooting:
+
+Security engineers frequently inspect live certificates when troubleshooting:
 - TLS connection failures
 - Certificate expiration issues
 - Misconfigured certificate chains
 - Hostname validation errors
 
-Being able to retrieve and analyze certificates directly from a TLS connection is an essential skill in **PKI operations and security engineering.**
+Being able to retrieve and analyze certificates directly from a live TLS connection is an essential skill in PKI operations and security engineering.
 
 ---
 
-CVI PKI Career Pathway — Foundations Phase
+*CVI PKI Career Pathway — Foundations Phase*
+
