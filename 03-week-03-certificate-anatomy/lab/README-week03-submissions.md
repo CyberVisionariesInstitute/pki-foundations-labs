@@ -7,7 +7,7 @@ This folder contains your completed lab write-ups and cryptographic artifacts fo
 ## Folder Structure
 
 ```
-labs/
+lab/
   week-03/
     submissions/
       leaf_cert.pem                        ← Lab 01
