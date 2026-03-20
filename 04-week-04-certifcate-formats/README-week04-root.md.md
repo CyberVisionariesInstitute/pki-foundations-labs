@@ -24,54 +24,19 @@ By the end of this week, you can:
 
 ---
 
-## Deliverables (Submit in Your Portfolio Repo)
+## What You Will Submit
 
-Update the following areas of your repository:
+| Deliverable | Location |
+|---|---|
+| Lab write-ups | `labs/week-04/submissions/` |
+| Lesson notes | `notes/week-04-key-concepts.md` |
+| Reflection | `reflections/week-04.md` |
 
-- `labs/04-week-04-certificate-formats/`
-- `notes/week-04-key-concepts.md`
-- `reflections/week-04.md`
-
-Before starting the labs, retrieve the templates from the `pki-foundations-labs/_templates` directory in the course repository.
-
-Copy the following files into your portfolio repository:
-
-Templates to copy:
+Before starting, copy the following templates from the course repository into your portfolio repo:
 
 - `_templates/lab-submission-template.md`
 - `_templates/lesson-notes-template.md`
 - `_templates/reflection-template.md`
-
-Use them to create the following files in your repo:
-
-**Lesson Notes**
-`notes/week-04-key-concepts.md`
-
-**Reflection**
-`reflections/week-04.md`
-
-**Lab Submissions**
-Create your lab write-ups using the lab submission template inside each lab folder.
-
-Place generated cryptographic artifacts inside:
-
-`labs/04-week-04-certificate-formats/submissions/`
-
-Required artifact folders:
-
-- `submissions/convert-formats/`
-- `submissions/trust-store-inspection/`
-- `submissions/install-validate/` *(Stretch — Lab 03 only)*
-
----
-
-## Artifact Rules
-
-- Commit actual certificate files and conversion outputs where applicable.
-- Use the `assets/` folder only for documentation images and screenshots.
-- Private keys must never be stored in version control — add `*.key` to your `.gitignore`.
-- Do not commit `test_key.pem` or any other private key files generated during the labs.
-- Clearly label all artifacts by lab in their respective subfolders.
 
 ---
 
@@ -83,7 +48,7 @@ Required artifact folders:
 - [ ] Lab 02 — Validate a live certificate against your system trust store
 - [ ] Lab 03 (Stretch) — Install a self-signed root CA and validate a signed certificate
 - [ ] Lab 03 (Stretch) — Remove the test root CA after completing the lab
-- [ ] Document findings in notes
+- [ ] Complete lesson notes
 - [ ] Write reflection for Week 4
 - [ ] Submit all labs in the CVI Lab Tracker
 - [ ] Commit with a meaningful message
