@@ -27,7 +27,7 @@ By the end of this week, you can:
 
 | Deliverable | Location |
 |---|---|
-| Lab write-ups | `labs/week-03/submissions/` |
+| Lab write-ups | `lab/week-03/submissions/` |
 | Lesson notes | `notes/week-03-key-concepts.md` |
 | Reflection | `reflections/week-03.md` |
 
