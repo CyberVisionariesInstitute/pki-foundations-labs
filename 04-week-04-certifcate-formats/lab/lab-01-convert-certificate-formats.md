@@ -30,14 +30,17 @@ You will:
 
 ### Step 1 — Connect to a website and retrieve its leaf certificate
 
+```bash
 openssl s_client -connect google.com:443 -showcerts
+```
 
 Locate the **first certificate block** — this is the leaf certificate issued directly to the website:
 
+```
 -----BEGIN CERTIFICATE-----
 MIIF...
 -----END CERTIFICATE-----
-
+```
 
 Copy the entire block including the `-----BEGIN CERTIFICATE-----` and `-----END CERTIFICATE-----` lines.
 
@@ -47,9 +50,9 @@ Copy the entire block including the `-----BEGIN CERTIFICATE-----` and `-----END 
 
 Create your artifact directory and save the certificate:
 
-
+```bash
 mkdir -p labs/week-04/submissions/convert-formats
-
+```
 
 Save the copied block as:
 
