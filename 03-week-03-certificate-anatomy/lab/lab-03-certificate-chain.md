@@ -5,6 +5,7 @@
 This lab builds operational understanding of how certificate chains establish trust in Public Key Infrastructure.
 
 You will:
+
 - Inspect multiple certificates in a trust hierarchy
 - Identify the root, intermediate, and leaf certificates
 - Verify a certificate chain using OpenSSL
@@ -57,6 +58,8 @@ Copy each block and save them as individual files:
 
 > If the root certificate is not in the output, look for the Issuer field in the intermediate cert — the root CA's website will have a download link.
 
+> **Mac users — saving certificate files:** Always save `.pem` files using a terminal text editor (`nano`, `vim`) or by piping output directly to a file. Do **not** use TextEdit — it saves as Rich Text Format (RTF) by default, which wraps the certificate in formatting code that OpenSSL cannot read. If you must use a GUI editor, go to Format → Make Plain Text before saving.
+
 ---
 
 ## Part 2 — Inspect Each Certificate
@@ -70,6 +73,7 @@ openssl x509 -in root.pem -text -noout
 ```
 
 For each certificate, locate:
+
 - **Subject** — who the cert is issued to
 - **Issuer** — who signed it
 - **Basic Constraints** — whether it can issue other certs (`CA:TRUE` or `CA:FALSE`)
@@ -100,6 +104,20 @@ server.pem: OK
 ```
 
 This confirms the server certificate is trusted through the full chain. If you see an error, check that each `.pem` file contains only one complete certificate block.
+
+> **Windows users — if you get `unable to get issuer certificate`:**
+> This is not a setup error. OpenSSL on Windows does not use Windows Certificate Manager to complete a certificate chain. When `root.pem` chains to another CA (Subject ≠ Issuer), Windows OpenSSL cannot resolve the missing root — even if the same command works on Mac. Mac's LibreSSL quietly fills the gap using the system Keychain; Windows OpenSSL does not.
+>
+> **Fix — download Mozilla's CA bundle and use it as your CAfile:**
+>
+> ```powershell
+> Invoke-WebRequest -Uri "https://curl.se/ca/cacert.pem" -OutFile cacert.pem
+> openssl verify -CAfile cacert.pem -untrusted intermediate.pem server.pem
+> ```
+>
+> Expected output: `server.pem: OK`
+>
+> This is a trusted, maintained bundle of all major root CAs — the same one curl uses internally. Document this in your Challenges / Troubleshooting section. Understanding why the same command behaves differently across platforms is part of what this lab is designed to build.
 
 ---
 
@@ -185,6 +203,11 @@ Paste the output of your `openssl verify` command:
 3. Which is the leaf certificate?
 4. How does the Issuer field connect the chain?
 5. Why do intermediate certificates exist?
+
+---
+
+## Challenges / Troubleshooting
+Document any issues encountered and how you resolved them.
 ```
 
 ---
@@ -247,6 +270,7 @@ openssl verify -CAfile root.pem server.pem
 ```
 
 Consider:
+
 - Does verification fail?
 - Why is the intermediate certificate necessary?
 - How do browsers obtain missing intermediate certificates?
