@@ -6,15 +6,6 @@ What PKI concept or system behavior were you investigating?
 
 ---
 
-## Environment
-Document the environment used to complete the lab.
-
-- Operating System:
-- Terminal Used:
-- OpenSSL Version (if applicable):
-
----
-
 ## Steps Performed
 Summarize the key steps you performed to complete the lab.
 
