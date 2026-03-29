@@ -20,9 +20,11 @@ You must also reference a **second lab** (different from Part 3) and include a *
 
 ## Submission Formats
 
-### Choose one:
+Choose one:
 - Written reflection — 500–800 words
-- Video explanation — 5–7 minutes (paste your link in the template)
+- Video explanation — 5–7 minutes
+
+If submitting a video, host it on any platform (YouTube, Vimeo, Google Drive, etc.) and paste the link into the **Video link** field in the template. Make sure the link is accessible before submitting.
 
 ## Required Visual
 
