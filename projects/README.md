@@ -9,6 +9,7 @@ Projects build on the weekly labs and reflections completed in your portfolio re
 | Folder | Project | Phase |
 |--------|---------|-------|
 | `phase 1-reflection-project/` | Phase 1 Reflection Project | Phase 1 — Foundations |
+| `pki-troubleshooting-runbook/` | PKI Troubleshooting Runbook | Phase 1 — Foundations |
 
 More projects will be added as the cohort progresses through Phase 2 and beyond.
 
