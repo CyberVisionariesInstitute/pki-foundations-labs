@@ -61,6 +61,11 @@ Commit your completed runbook to your GitHub portfolio repository:
 runbooks/pki-troubleshooting-runbook.md
 ```
 
+## Template
+
+The submission template is in this folder: `pki-troubleshooting-runbook-template.md`
+
 ---
 
+*CVI PKI Career Pathway — Phase 1 Foundations*
 *CVI PKI Career Pathway — Phase 1 Foundations*
