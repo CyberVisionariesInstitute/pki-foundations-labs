@@ -136,40 +136,11 @@ openssl x509 -in expired_cert.pem -noout -text | grep -A1 "OCSP"
 
 ---
 
-## Incident Summary
+## Your Submission
 
-Fill out the following template in your submission file. This is the structured summary you would send to the Metro General IT team after diagnosing the issue.
+Use `_templates/lab-submission-w6-template.md` for your write-up. Copy it into your portfolio repo, rename it to `lab-01-expired-certificate.md`, and fill it out as you work through each step above.
 
-```
-## Incident Summary — Expired Certificate
-
-**Target system:** portal.metrogeneral.org (simulated via expired.badssl.com)
-**Diagnosed by:** [your name]
-**Date of diagnosis:** [date]
-
-### What failed
-[One sentence: what exactly caused the TLS failure]
-
-### Evidence
-- Not Before: [date from cert]
-- Not After: [date from cert]
-- Current date at time of diagnosis: [date]
-- Certificate expired: [X days ago — calculate this]
-
-### Why it failed
-[2–3 sentences: What does certificate expiration mean technically? Why does it cause a TLS failure?
-Connect this to what you learned in Week 5, Lesson 3.]
-
-### Chain status
-[Was the chain otherwise intact? Any other issues found?]
-
-### Remediation path
-[Step-by-step: what does the Metro General team need to do to restore the portal?
-Be specific — don't just say "get a new certificate." Walk through the process.]
-
-### Prevention
-[One concrete thing Metro General could do differently to prevent this from happening again]
-```
+For the **Incident Summary** section of the template, use `portal.metrogeneral.org (simulated via expired.badssl.com)` as the target system. The Evidence section should include the `Not Before` and `Not After` dates, how many days ago the certificate expired, and your chain status finding. The Remediation path should be step-by-step — not just "get a new certificate."
 
 ---
 
