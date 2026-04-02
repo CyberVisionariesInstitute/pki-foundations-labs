@@ -112,9 +112,7 @@ Record: What is the OCSP responder URL in this certificate?
 ### Step 5 — Find the CRL Distribution Point
 
 ```bash
-openssl x509 \
-  -in labs/week-05/submissions/revocation-status/leaf_cert.pem \
-  -text -noout | grep -A4 "CRL Distribution Points"
+openssl x509 -in labs/week-05/submissions/revocation-status/leaf_cert.pem -text -noout
 ```
 
 Record: What is the CRL Distribution Point URL?
