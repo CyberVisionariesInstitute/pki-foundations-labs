@@ -23,6 +23,19 @@ labs/
 
 ---
 
+## Templates
+
+Copy the correct template into each submission folder before you start writing:
+
+| Lab | Template |
+|---|---|
+| Labs 01, 02, 03 | `_templates/lab-submission-w6-template.md` |
+| Lab 04 (Stretch) | `_templates/lab-04-incident-report-template.md` |
+
+Rename the file to match the lab file naming convention below after copying.
+
+---
+
 ## File Naming Convention
 
 Lab write-ups must follow this format exactly:
