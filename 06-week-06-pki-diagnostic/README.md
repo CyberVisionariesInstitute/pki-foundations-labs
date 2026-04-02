@@ -1,3 +1,17 @@
+# Week 6 — PKI Incident Diagnosis & Troubleshooting
+
+## Focus
+
+This week you stop memorizing error messages and start thinking like a PKI engineer on call.
+
+You will learn a repeatable 4-step diagnostic framework that applies to any PKI failure — expired certificates, broken chains, hostname mismatches, and revocation problems. The goal is not to recognize error messages. The goal is to develop a systematic approach so you always know where to look first, regardless of the failure.
+
+Every lab this week is a real incident type. You will work through each one using the framework, document your findings, and practice writing the kind of structured summary a PKI engineer sends to their team after resolving an issue.
+
+Metro General Hospital's IT team has been getting paged. You are the on-call PKI engineer.
+
+---
+
 ## The PKI Diagnostic Framework
 
 Before starting any lab, internalize these four steps. You will use them in every lab this week.
@@ -34,9 +48,12 @@ By the end of this week, you can:
 
 Before starting, copy the following templates from the course repository into your portfolio repo:
 
-- `_templates/lab-submission-template.md`
+- `_templates/lab-submission-w6-template.md` — use this for Labs 01, 02, and 03
+- `_templates/lab-04-incident-report-template.md` — use this for Lab 04 (Stretch)
 - `_templates/lesson-notes-template.md`
 - `_templates/reflection-template.md`
+
+> Week 6 uses dedicated submission templates. The standard `lab-submission-template.md` from prior weeks does not include the incident summary format required this week.
 
 ---
 
