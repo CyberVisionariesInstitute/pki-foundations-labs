@@ -83,6 +83,52 @@ labs/
 
 ## Commit Instructions
 
+Use whichever method you are most comfortable with. All three produce the same result.
+
+**Commit message format:**
+```
+Week 9: <brief description>
+```
+
+Examples:
+- `Week 9: Environment verification and documentation labs`
+- `Week 9: Lab 01 and 02 — corp.cvilab.local baseline documentation`
+
+---
+
+### Option 1 — GitHub Web UI
+
+1. Go to your portfolio repository on GitHub.com
+2. Navigate to `labs/week-09/` (create the folder if it does not exist — you can do this by typing `labs/week-09/` as part of the file path when creating a new file)
+3. Click **Add file → Upload files** (for existing files) or **Add file → Create new file** (to paste content directly)
+4. Upload or paste `lab-01-environment-verification.md`
+5. Scroll to **Commit changes** at the bottom of the page
+6. Enter your commit message: `Week 9: Environment verification and documentation labs`
+7. Select **Commit directly to the main branch**
+8. Click **Commit changes**
+9. Repeat steps 3–8 for `lab-02-environment-documentation.md`
+
+> You can also drag and drop both files at once using the Upload files option — then write a single commit message covering both.
+
+---
+
+### Option 2 — VS Code
+
+1. Open VS Code and open your portfolio repo folder (`File → Open Folder`)
+2. Place your completed lab files into the `labs/week-09/` folder using the Explorer panel (create the folder if needed)
+3. Open the **Source Control** panel (Ctrl+Shift+G on Windows/Linux, Cmd+Shift+G on Mac)
+4. You will see both files listed under **Changes**
+5. Click the **+** icon next to each file to stage them (or click **+** next to **Changes** to stage all)
+6. Type your commit message in the box at the top: `Week 9: Environment verification and documentation labs`
+7. Click the **✓ Commit** button (or press Ctrl+Enter / Cmd+Enter)
+8. Click **Sync Changes** (or the **↑** push icon) to push to GitHub
+
+> If VS Code prompts you to publish the branch, click **Publish Branch**.
+
+---
+
+### Option 3 — Git Commands
+
 ```bash
 # Navigate to your portfolio repo
 cd your-pki-portfolio
@@ -97,15 +143,6 @@ git add labs/week-09/
 git commit -m "Week 9: Environment verification and documentation labs"
 git push
 ```
-
-**Commit message format:**
-```
-Week 9: <brief description>
-```
-
-Examples:
-- `Week 9: Environment verification and documentation labs`
-- `Week 9: Lab 01 and 02 — corp.cvilab.local baseline documentation`
 
 ---
 
