@@ -61,7 +61,7 @@ Open the Certificate Templates console: **Run → certtmpl.msc**
 **Subject Name tab — Subject name format:**
 
 ```
-(Built from AD? Supplied in request? What fields?)
+(Which one should you select: Built from AD? Supplied in request? What fields?)
 ```
 
 **Extensions tab — Key Usage:**
@@ -201,8 +201,10 @@ Why does the Web Server template use "Supplied in the request" for the subject n
 
 | Group / Account | Enroll | Autoenroll |
 |-----------------|--------|------------|
-| Domain Computers | | |
+| Domain Admins | | |
 | Authenticated Users | | |
+
+**Ensure Write and Enroll permissions are checked under Authenticated Users**
 
 **Template saved:**
 - [ ] Yes — template visible in certtmpl.msc
