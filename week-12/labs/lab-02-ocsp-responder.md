@@ -9,32 +9,14 @@
 
 ## Prerequisites
 
-If you can log into PKI-SRV01 as **CORP\pki.admin**, you are communicating with DC01 and the environment is ready. Proceed to Part A.
-
+Complete Lab 01 before starting Lab 02. You need:
+- A revoked certificate from Lab 01 (for OCSP Revoked status testing)
+- A valid, non-revoked certificate (your TLS cert from Week 10 or another cert from Week 11)
 ---
 
 ## Pre-Lab Verification
 
-Run the following on PKI-SRV01 before starting.
-
-```powershell
-# Check 1 — CA service running
-Get-Service -Name CertSvc
-
-# Check 2 — Lab 01 complete: at least one revoked certificate in the CA
-certutil -view -restrict "Disposition=21" -out "RequestID,SerialNumber,CommonName,RevokedReason" | head -10
-
-# Check 3 — CRL is current (not expired)
-certutil -dump "C:\Windows\System32\CertSrv\CertEnroll\<CA-Name>.crl" | findstr "NextUpdate"
-```
-
-**All checks passed:**
-- [ ] Yes
-- [ ] No — describe the issue and how you resolved it:
-
-```
-(describe here)
-```
+If you can log into PKI-SRV01 as **CORP\pki.admin**, you are communicating with DC01 and the environment is ready. Proceed to Part A.
 
 ---
 
