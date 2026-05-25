@@ -124,7 +124,7 @@ Document every setting with a reason. This is the design record for the template
 (why are permissions set this way? what risk does restricting Enroll to svc.autoenroll only prevent?)
 ```
 
-**General tab — Template names:**
+**6 - General tab — Template names:**
 
 | Field | Value |
 |-------|-------|
