@@ -93,6 +93,18 @@ Document every setting with a reason. This is the design record for the template
 
 **5 — Security Tab — Enrollment Permissions**
 
+In the template Properties window, click the **Security** tab.
+
+By default, **Authenticated Users** and **Domain Admins** are already listed. You need to add **svc.autoenroll** manually:
+
+1. Click **Add**
+2. In the object picker, type `svc.autoenroll` and click **Check Names**
+3. Confirm the account resolves to `CORP\svc.autoenroll`, then click **OK**
+4. With **svc.autoenroll** selected in the list, check **Read**, **Enroll**, and **Autoenroll**
+5. Click **Apply**
+
+Now document the permissions you have set for all three entries:
+
 | Group / Account | Read | Enroll | Autoenroll | Reason |
 |-----------------|------|--------|------------|--------|
 | Authenticated Users | | | | |
