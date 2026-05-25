@@ -10,6 +10,7 @@
 ## Pre-Lab Verification
 
 If you can log into PKI-SRV01 as **CORP\pki.admin**, you are communicating with DC01 and the environment is ready. Proceed to Part A.
+
 ---
 
 ## Part A — Choose Your Certificate
