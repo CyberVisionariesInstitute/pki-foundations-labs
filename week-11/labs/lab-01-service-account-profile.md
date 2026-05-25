@@ -97,7 +97,7 @@ Document every setting with a reason. This is the design record for the template
 |-----------------|------|--------|------------|--------|
 | Authenticated Users | | | | |
 | CORP\svc.autoenroll | | | | |
-| Domain Computers | | | | |
+| Domain Admins | | | | |
 
 **Explanation of enrollment permission decisions:**
 
@@ -105,7 +105,7 @@ Document every setting with a reason. This is the design record for the template
 (why are permissions set this way? what risk does restricting Enroll to svc.autoenroll only prevent?)
 ```
 
-**6 - General tab — Template names:**
+**General tab — Template names:**
 
 | Field | Value |
 |-------|-------|
