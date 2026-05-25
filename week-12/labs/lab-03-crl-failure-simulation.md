@@ -22,12 +22,7 @@ Complete Labs 01 and 02 before starting Lab 03.
 
 ## Pre-Lab Verification
 
-```powershell
-# Verify CA service is running
-Get-Service -Name CertSvc
-
-# Verify OCSP responder is running
-Get-Service -Name OCSPSvc
+If you can log into PKI-SRV01 as **CORP\pki.admin**, you are communicating with DC01 and the environment is ready. Proceed to Part A.
 
 # Record the current CRL publication settings BEFORE making any changes
 certutil -getreg CA\CRLPeriod
