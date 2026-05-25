@@ -9,15 +9,7 @@
 
 ## Pre-Lab Verification
 
-Run on PKI-SRV01 before starting.
-
-```powershell
-Get-Service -Name CertSvc
-certutil -ping
-```
-
-**CertSvc status:** ________________  
-**CA responding:** Yes / No
+If you can log into PKI-SRV01 as **CORP\pki.admin**, you are communicating with DC01 and the environment is ready. Proceed to Part A.
 
 ---
 
