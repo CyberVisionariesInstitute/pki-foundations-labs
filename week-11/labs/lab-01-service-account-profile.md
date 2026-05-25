@@ -9,26 +9,7 @@
 
 ## Pre-Lab Verification
 
-Run the following on PKI-SRV01 before starting. Do not proceed until all checks pass.
-
-```powershell
-# Check 1 — CA service running
-Get-Service -Name CertSvc
-
-# Check 2 — CA responding
-certutil -ping
-
-# Check 3 — Confirm svc.autoenroll account exists in AD
-Get-ADUser -Identity svc.autoenroll -Properties UserPrincipalName | Select-Object Name, UserPrincipalName
-```
-
-**All checks passed:**
-- [ ] Yes
-- [ ] No — describe the issue and how you resolved it:
-
-```
-(describe here)
-```
+If you can log into PKI-SRV01 as **CORP\pki.admin**, you are communicating with DC01 and the environment is ready. Proceed to Part A.
 
 ---
 
