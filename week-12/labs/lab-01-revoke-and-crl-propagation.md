@@ -9,28 +9,7 @@
 
 ## Pre-Lab Verification
 
-Run the following on PKI-SRV01 before starting. Do not proceed until all checks pass.
-
-```powershell
-# Check 1 — CA service running
-Get-Service -Name CertSvc
-
-# Check 2 — CA responding
-certutil -ping
-
-# Check 3 — Confirm at least one issued certificate exists from Weeks 10 or 11
-# (service account cert or code signing cert)
-certutil -view -restrict "Disposition=20" -out "RequestID,CommonName,SerialNumber,NotAfter" | head -20
-```
-
-**All checks passed:**
-- [ ] Yes
-- [ ] No — describe the issue and how you resolved it:
-
-```
-(describe here)
-```
-
+If you can log into PKI-SRV01 as **CORP\pki.admin**, you are communicating with DC01 and the environment is ready. Proceed to Part A.
 ---
 
 ## Part A — Choose Your Certificate
