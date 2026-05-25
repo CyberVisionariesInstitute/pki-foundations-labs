@@ -9,9 +9,7 @@
 
 ## Prerequisites
 
-Complete Lab 01 before starting Lab 02. You need:
-- A revoked certificate from Lab 01 (for OCSP Revoked status testing)
-- A valid, non-revoked certificate (your TLS cert from Week 10 or another cert from Week 11)
+If you can log into PKI-SRV01 as **CORP\pki.admin**, you are communicating with DC01 and the environment is ready. Proceed to Part A.
 
 ---
 
