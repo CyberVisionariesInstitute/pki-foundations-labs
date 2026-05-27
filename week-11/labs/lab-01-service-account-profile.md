@@ -1,31 +1,207 @@
-# Lab 01: Revoke a Certificate and Observe CRL Propagation
+# Lab 01: Build a Certificate Profile for a Service Account
 
 **Student Name:**  
 **Date Completed:**  
-**Phase:** 2 | **Week:** 12  
-**Submission Path:** `labs/week-12/lab-01-revoke-and-crl-propagation.md`
+**Phase:** 2 | **Week:** 11  
+**Submission Path:** `labs/week-11/lab-01-service-account-profile.md`
 
 ---
 
 ## Pre-Lab Verification
 
-Run the following on PKI-SRV01 before starting. Do not proceed until all checks pass.
+If you can log into PKI-SRV01 as **CORP\pki.admin**, you are communicating with DC01 and the environment is ready. Proceed to Part A.
 
-```powershell
-# Check 1 — CA service running
-Get-Service -Name CertSvc
+---
 
-# Check 2 — CA responding
-certutil -ping
+## Part A — Design the CVI-ServiceAccount Template
 
-# Check 3 — Confirm at least one issued certificate exists from Weeks 10 or 11
-# (service account cert or code signing cert)
-certutil -view -restrict "Disposition=20" -out "RequestID,CommonName,SerialNumber,NotAfter" | head -20
+### Step 1 — Open the Certificate Templates Console
+
+1. Press **Win + R**, type `certtmpl.msc`, and press **Enter**
+2. The Certificate Templates console opens, showing all templates installed on this CA
+3. Scroll through the list to get familiar with what already exists
+
+### Step 2 — Duplicate the User Template
+
+1. Scroll down to find the **User** template in the list
+2. Right-click **User** → select **Duplicate Template**
+3. A new template Properties window opens — this is your working copy
+
+> **Why User?** The svc.autoenroll account is an AD user-type object, not a machine account. The User template is the correct baseline. The Computer template is for machine accounts and includes Server Authentication EKU, which is not appropriate for a service account.
+
+**Source template duplicated:** ________________ (document your choice)
+
+**Reason for choosing this source template:**
+
+```
+(your explanation here)
 ```
 
-**All checks passed:**
+### Step 3 — Set Compatibility Settings
+
+1. Click the **Compatibility** tab
+2. Set **Certification Authority** to: `Windows Server 2012 R2`
+3. Set **Certificate Recipient** to: `Windows 8.1 / Windows Server 2012 R2`
+4. Click **OK** on any informational dialog that appears
+
+**Compatibility settings selected:**
+- Certification Authority: ________________
+- Certificate Recipient: ________________
+
+### Step 4 — Set the Template Name (General Tab)
+
+1. Click the **General** tab
+2. Change **Template display name** to: `CVI Service Account`
+3. The **Template name** (internal name, no spaces) will auto-fill as `CVI-ServiceAccount` — confirm this
+4. Note the **Schema version** shown at the bottom
+
+**General tab — Template names:**
+
+| Field | Value |
+|-------|-------|
+| Template display name | CVI Service Account |
+| Template name (internal) | CVI-ServiceAccount |
+| Schema version | |
+
+### Step 5 — Configure Key Usage
+
+1. Click the **Extensions** tab
+2. In the Extensions list, select **Key Usage** → click **Edit**
+3. In the Key Usage dialog:
+   - Check **Digital Signature**
+   - Uncheck **Key Encipherment** (if checked)
+   - Uncheck **Data Encipherment** (if checked)
+   - Uncheck **Non-Repudiation** (if checked)
+   - Check **Make this extension critical**
+4. Click **OK**
+
+Document what you set and why:
+
+| Key Usage | Included? | Reason |
+|-----------|-----------|--------|
+| Digital Signature | | |
+| Key Encipherment | | |
+| Data Encipherment | | |
+| Non-Repudiation | | |
+
+**Explanation of Key Usage decisions:**
+
+```
+(in your own words — why did you include what you included, and exclude what you excluded?)
+```
+
+### Step 6 — Configure Extended Key Usage (Application Policies)
+
+1. Still on the **Extensions** tab, select **Application Policies** → click **Edit**
+2. The User template comes with several EKUs pre-populated (Client Authentication, Encrypting File System, Secure Email). You need to remove all but one:
+   - Select **Encrypting File System** → click **Remove**
+   - Select **Secure Email** → click **Remove**
+   - Leave **Client Authentication** (1.3.6.1.5.5.7.3.2) — this is the only EKU needed
+3. Click **OK**
+
+Document your EKU decisions:
+
+| EKU | Included? | OID | Reason |
+|-----|-----------|-----|--------|
+| Client Authentication | | 1.3.6.1.5.5.7.3.2 | |
+| Server Authentication | | 1.3.6.1.5.5.7.3.1 | |
+| Code Signing | | 1.3.6.1.5.5.7.3.3 | |
+| Secure Email | | 1.3.6.1.5.5.7.3.4 | |
+
+**Explanation of EKU decisions:**
+
+```
+(in your own words — what does this certificate need to do, and why does that determine the EKU?)
+```
+
+### Step 7 — Configure Subject Name
+
+1. Click the **Subject Name** tab
+2. Select **Build from this Active Directory information**
+3. Under **Subject name format**, select **User principal name (UPN)** from the dropdown
+4. Uncheck any other options under "Include this information in alternate subject name" that are not needed
+
+Document your settings:
+
+| Setting | Value Selected | Reason |
+|---------|---------------|--------|
+| Subject name format | | |
+| Include this information in the subject name | | |
+
+**Explanation of Subject Name decision:**
+
+```
+(why does this certificate use "Build from AD" rather than "Supply in request"?)
+```
+
+### Step 8 — Set Validity Period
+
+1. Click the **General** tab (you may already be on it)
+2. Find the **Validity period** and **Renewal period** fields
+3. Set **Validity period** to `1` year (or 2 years — document your reasoning)
+4. Leave **Renewal period** at the default (6 weeks)
+
+> **Note:** The CA itself has a maximum validity setting. If you set 5 years here but certs issue for only 2, the CA's max is overriding your template. You can check with: `certutil -getreg ca\ValidityPeriod`
+
+| Setting | Value | Reason |
+|---------|-------|--------|
+| Validity period | | |
+| Renewal period | | |
+
+**Explanation of validity period decision:**
+
+```
+(why did you choose this period? how does it relate to the CA maximum and the service account lifecycle?)
+```
+
+### Step 9 — Set Enrollment Permissions (Security Tab)
+
+1. Click the **Security** tab
+2. You will see **Authenticated Users** and **Domain Admins** already listed
+3. Add svc.autoenroll manually:
+   - Click **Add**
+   - In the object picker, type `svc.autoenroll` and click **Check Names**
+   - Confirm the account resolves to `CORP\svc.autoenroll`, then click **OK**
+   - With **svc.autoenroll** selected in the list, check **Read**, **Enroll**, and **Autoenroll**
+4. Click **Apply**
+5. Review the permissions on all three entries and document them below
+
+| Group / Account | Read | Enroll | Autoenroll | Reason |
+|-----------------|------|--------|------------|--------|
+| Authenticated Users | | | | |
+| CORP\svc.autoenroll | | | | |
+| Domain Admins | | | | |
+
+**Explanation of enrollment permission decisions:**
+
+```
+(why are permissions set this way? what risk does restricting Enroll to svc.autoenroll only prevent?)
+```
+
+### Step 10 — Save the Template
+
+1. Click **OK** to close the Properties window and save the template
+2. Verify **CVI-ServiceAccount** now appears in the certtmpl.msc list
+
+**Template saved and visible in certtmpl.msc:**
 - [ ] Yes
-- [ ] No — describe the issue and how you resolved it:
+
+---
+
+## Part B — Publish the Template and Issue the Certificate
+
+### Step 1 — Publish the Template to the CA
+
+1. Press **Win + R**, type `certsrv.msc`, and press **Enter**
+2. Expand **CVI Issuing CA 1** in the left pane
+3. Right-click **Certificate Templates** → **New** → **Certificate Template to Issue**
+4. In the Enable Certificate Templates dialog, scroll to find **CVI-ServiceAccount**
+5. Select it → click **OK**
+6. The template should appear in the Certificate Templates node within 30 seconds. If it doesn't, right-click the node → **Refresh**
+
+**CVI-ServiceAccount visible in Certificate Templates node:**
+- [ ] Yes
+- [ ] No — describe what happened:
 
 ```
 (describe here)
@@ -33,229 +209,164 @@ certutil -view -restrict "Disposition=20" -out "RequestID,CommonName,SerialNumbe
 
 ---
 
-## Part A — Choose Your Certificate
+### Step 2 — Request the Certificate for svc.autoenroll
 
-You will revoke one of the certificates issued in Weeks 10 or 11. Select one and document your choice.
+> **Important:** svc.autoenroll is an AD user account, not a Windows service. The Certificates snap-in "Service account" option lists Windows system services only — svc.autoenroll will not appear there. Instead, use `runas` to open MMC running as the svc.autoenroll account.
 
-**Available candidates:**
-- The service account certificate issued to `svc.autoenroll` (Lab 01, Week 11)
-- The code signing certificate issued to `pki.admin` (Lab 02, Week 11)
-- A TLS certificate issued in Week 10 (if available)
+1. Open **Command Prompt** or **PowerShell** as Administrator
+2. Run the following command:
+   ```
+   runas /user:CORP\svc.autoenroll mmc.exe
+   ```
+3. Enter the **svc.autoenroll password** when prompted
+4. A new MMC window opens — this window is running as svc.autoenroll
+5. In the new MMC window: **File → Add/Remove Snap-in**
+6. Select **Certificates** → click **Add**
+7. Choose **My user account** → click **Finish** → click **OK**
+8. Expand **Certificates (Current User)** → **Personal**
 
-**Certificate selected for revocation:**
+> **Note:** If no certificates have been issued yet for this account, you will not see a **Certificates** folder under Personal — this is expected. Right-click **Personal** directly → **All Tasks** → **Request New Certificate**. Once the certificate is issued, the Certificates folder will appear automatically.
 
-```
-(Common Name / Subject)
-```
+9. Right-click **Personal** → **All Tasks** → **Request New Certificate**
+10. Click **Next** through the enrollment wizard
+11. Select **Active Directory Enrollment Policy** → click **Next**
+12. The CVI-ServiceAccount template should appear in the list. Check the box next to it
+13. Click **Enroll**
+14. Enrollment should complete immediately (Status: Succeeded). Click **Finish**
 
-**Serial number of the selected certificate:**
-
-```powershell
-# Run on PKI-SRV01 to find the serial number
-certutil -view -restrict "CommonName=<cn-of-your-cert>" -out "RequestID,SerialNumber,CommonName,NotAfter"
-```
-
-```
-(paste output here)
-```
-
-**Why you selected this certificate:**
-
-```
-(brief explanation — e.g., "I chose the service account cert because...")
-```
-
----
-
-## Part B — Revoke the Certificate
-
-**Step 1:** Open the Certification Authority console on PKI-SRV01:
-```
-Run → certsrv.msc
-```
-
-Navigate to **Issued Certificates**. Locate your selected certificate by Common Name or Serial Number.
-
-**Step 2:** Right-click the certificate → **All Tasks → Revoke Certificate**.
-
-**Revocation reason code selected:**
-
-| Reason Code | Selected? |
-|---|---|
-| Key Compromise | |
-| CA Compromise | |
-| Affiliation Changed | |
-| Superseded | |
-| Cessation of Operation | |
-
-**Why you chose this reason code:**
+**Enrollment wizard — enrollment policy selected:**
 
 ```
-(explain your reasoning — this is the operational design decision for this lab)
+(Active Directory Enrollment Policy or other?)
 ```
 
-**Step 3:** Confirm the revocation. The certificate should now appear in the **Revoked Certificates** view.
+**Templates visible in the wizard:**
 
-**Confirm the certificate appears in Revoked Certificates:**
+```
+(list all templates you see)
+```
+
+**CVI-ServiceAccount visible in wizard:**
 - [ ] Yes
-- [ ] No — describe:
+- [ ] No — troubleshooting steps taken:
 
-**Timestamp of revocation (from Revoked Certificates view):**
+**Certificate request submitted:**
+- [ ] Yes — issued immediately
+- [ ] Yes — pending manager approval (describe resolution):
+- [ ] No — error encountered:
 
 ```
-(record the revocation date/time shown in the CA console)
+(paste error or describe outcome)
 ```
 
 ---
 
-## Part C — Publish the CRL
+## Part C — Verify the Issued Certificate
 
-After marking the certificate revoked, publish a new CRL immediately.
+### Step 1 — Inspect the Certificate with certutil
 
-**Step 1:** In the CA console, right-click the CA name → **All Tasks → Publish**.
-
-**Select:** New CRL (base CRL)
-
-```
-Publish result (any output or confirmation shown):
-```
-
-**Step 2:** Publish using certutil from the command line to confirm:
+Open **PowerShell** on PKI-SRV01 as CORP\pki.admin and run:
 
 ```powershell
-certutil -CRL
+certutil -store My
 ```
+
+> If the certificate was enrolled via the runas MMC session, it will be in the svc.autoenroll user's personal store, not the pki.admin store. To view it, you can either re-open the runas MMC window, or check the CA's Issued Certificates node (Step 2 below) to confirm issuance.
+
+**Full certutil output:**
 
 ```
 (paste output here)
 ```
 
-**Did the publication complete without errors?**
+**From the certutil output — record the following:**
+
+| Field | Value |
+|-------|-------|
+| Subject | |
+| Issuer | |
+| Serial Number | |
+| Key Usage | |
+| Enhanced Key Usage (EKU) | |
+| Validity: Not Before | |
+| Validity: Not After | |
+| Thumbprint | |
+
+### Step 2 — Confirm in certsrv.msc and Record the Request ID
+
+1. Open **certsrv.msc** (Press Win + R → type `certsrv.msc`)
+2. Expand **CVI Issuing CA 1** → click **Issued Certificates**
+3. Find the svc.autoenroll certificate in the list (sort by Request ID or Requester Name)
+4. Double-click it to open and confirm it shows the CVI-ServiceAccount template
+5. Record the values below
+
+**Certificate visible in Issued Certificates node:**
 - [ ] Yes
-- [ ] No — describe the error:
+
+**Record from the Issued Certificates node:**
+
+| Column | Value |
+|--------|-------|
+| Request ID | |
+| Requester Name | |
+| Certificate Template | |
+| Issued Common Name | |
+| Certificate Expiration Date | |
+
+> **Save this Request ID.** You will use it in Week 12 to revoke this certificate, and in Lab 03 for the comparison exercise.
 
 ---
 
-## Part D — Locate and Inspect the CRL
+## Part D — Written Explanation
 
-**Step 1:** Find the CRL Distribution Point URL in your certificate.
+Answer the following questions in plain prose paragraphs — not bullet points. Aim for 2–3 paragraphs total across the two questions.
 
-```powershell
-# Inspect the CDP extension of the certificate you revoked
-# Export the cert first if needed:
-certutil -view -restrict "SerialNumber=<serial>" -out "RawCertificate" | certutil -dump
-```
+**What makes a service account certificate different from a user certificate? Address the following:**
 
-**CRL Distribution Point URL found in the certificate:**
+1. Key difference in EKU — what does a user certificate include that the service account certificate should not, and why?
+2. Subject Name source — both use "Build from AD," but what is different about the identity being represented?
+3. Enrollment — who requests a user certificate vs. who requests a service account certificate, and why does this matter?
 
 ```
-(paste the HTTP URL from the CDP extension)
+(your written explanation here)
 ```
 
-**Step 2:** Download the CRL from the distribution point and inspect it.
-
-```powershell
-# Download the CRL to the local machine
-certutil -URL <certificate.cer>
-# In the URL Retrieval Tool: test the CDP URL — confirm HTTP 200
-
-# Or download directly and inspect:
-certutil -dump "C:\Windows\System32\CertSrv\CertEnroll\<CA-Name>.crl"
-```
-
-**CRL inspection output (paste the relevant sections):**
+**What are the operational risks of relying on password authentication for service accounts instead of certificate-based authentication?**
 
 ```
-ThisUpdate:
+(your answer here — identify at least two specific risks)
 ```
-
-```
-NextUpdate:
-```
-
-```
-(paste the full certutil -dump output of the CRL here, or the most relevant sections)
-```
-
-**Step 3:** Confirm your revoked certificate appears in the CRL.
-
-```powershell
-# Search the CRL for your certificate's serial number
-certutil -dump "C:\Windows\System32\CertSrv\CertEnroll\<CA-Name>.crl" | findstr -i "<your-serial-number>"
-```
-
-```
-(paste output here)
-```
-
-**Does your revoked certificate serial number appear in the CRL?**
-- [ ] Yes
-- [ ] No — describe what you see and what you suspect:
 
 ---
 
-## Part E — Verify Revocation Status
+## Reflection
 
-```powershell
-# Full certificate verification — should now show revocation failure
-certutil -verify <certificate.cer>
-```
+**One thing about the CVI-ServiceAccount template design that was a non-obvious decision:**
 
 ```
-(paste output here)
+(your observation here)
 ```
 
-**Does certutil -verify report the certificate as revoked?**
-- [ ] Yes — paste the relevant error text:
-- [ ] No — describe what you see:
-
----
-
-## Part F — Lab Report
-
-Answer all questions in your own words.
-
-**1. Walk through the two-step revocation workflow you performed. What happens at each step — and why is step 2 not optional?**
+**What would you change about this template if this were a production environment rather than a lab?**
 
 ```
-(your answer here)
-```
-
-**2. You chose a specific revocation reason code. What would have changed if you had chosen Key Compromise instead? What would change operationally?**
-
-```
-(your answer here)
-```
-
-**3. What does the NextUpdate field in the CRL tell a relying party? If a relying party tries to verify your revoked certificate after the NextUpdate has passed, what happens?**
-
-```
-(your answer here)
-```
-
-**4. The certificate you revoked was issued to a specific identity. If a relying party in a soft-fail environment had already cached the CRL before you published the new one, would they know the certificate is revoked? Why or why not?**
-
-```
-(your answer here)
-```
-
-**5. What is one thing you would do differently or check additionally in a production environment that you did not need to do in this lab?**
-
-```
-(your answer here)
+(your answer here — think about approval workflow, validity period, or monitoring)
 ```
 
 ---
 
 ## Submission Checklist
 
-- [ ] Certificate selected and serial number documented
-- [ ] Revocation reason code chosen with rationale
-- [ ] Certificate confirmed in Revoked Certificates view
-- [ ] CRL published manually (certutil -CRL output included)
-- [ ] CRL Distribution Point URL identified from certificate
-- [ ] CRL inspected: ThisUpdate and NextUpdate recorded
-- [ ] Revoked serial number confirmed in CRL
-- [ ] certutil -verify shows revocation
-- [ ] All five lab report questions answered
-- [ ] Lab report committed to `labs/week-12/lab-01-revoke-and-crl-propagation.md`
+- [ ] Pre-lab verification completed
+- [ ] Part A: Template duplicated from the User template
+- [ ] Part A: All five design decisions (Key Usage, EKU, Subject Name, Validity, Security) documented with rationale
+- [ ] Part A: Template saved as CVI-ServiceAccount and visible in certtmpl.msc
+- [ ] Part B: Template published to CVI Issuing CA 1
+- [ ] Part B: Certificate requested via runas /user:CORP\svc.autoenroll mmc.exe
+- [ ] Part B: Certificate issued — enrollment outcome documented
+- [ ] Part C: certutil output pasted and key fields extracted into table
+- [ ] Part C: Request ID recorded from certsrv.msc Issued Certificates node
+- [ ] Part D: Written explanation completed in prose
+- [ ] Reflection section completed
+- [ ] File saved as `lab-01-service-account-profile.md`
+- [ ] File committed to portfolio repo under `labs/week-11/`
