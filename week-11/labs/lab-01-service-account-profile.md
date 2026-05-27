@@ -1,9 +1,9 @@
-# Lab 01: Build a Certificate Profile for a Service Account
+# Lab 02: Issue a Code Signing Certificate
 
 **Student Name:**  
 **Date Completed:**  
 **Phase:** 2 | **Week:** 11  
-**Submission Path:** `labs/week-11/lab-01-service-account-profile.md`
+**Submission Path:** `labs/week-11/lab-02-code-signing-certificate.md`
 
 ---
 
@@ -13,29 +13,22 @@ If you can log into PKI-SRV01 as **CORP\pki.admin**, you are communicating with 
 
 ---
 
-## Part A — Design the CVI-ServiceAccount Template
+## Part A — Design the CVI-CodeSigning Template
 
 ### Step 1 — Open the Certificate Templates Console
 
 1. Press **Win + R**, type `certtmpl.msc`, and press **Enter**
-2. The Certificate Templates console opens, showing all templates installed on this CA
-3. Scroll through the list to get familiar with what already exists
+2. The Certificate Templates console opens showing all templates installed on this CA
 
-### Step 2 — Duplicate the User Template
+### Step 2 — Duplicate the Code Signing Template
 
-1. Scroll down to find the **User** template in the list
-2. Right-click **User** → select **Duplicate Template**
+1. Scroll through the list to find the built-in **Code Signing** template
+2. Right-click **Code Signing** → select **Duplicate Template**
 3. A new template Properties window opens — this is your working copy
 
-> **Why User?** The svc.autoenroll account is an AD user-type object, not a machine account. The User template is the correct baseline. The Computer template is for machine accounts and includes Server Authentication EKU, which is not appropriate for a service account.
+> **Why Code Signing and not User?** The built-in Code Signing template already has the correct Key Usage (Digital Signature only) and EKU (Code Signing only) pre-configured. Starting from User would require removing multiple EKUs and introduces the risk of leaving incorrect settings in place.
 
-**Source template duplicated:** ________________ (document your choice)
-
-**Reason for choosing this source template:**
-
-```
-(your explanation here)
-```
+**Source template duplicated:** ________________
 
 ### Step 3 — Set Compatibility Settings
 
@@ -44,310 +37,329 @@ If you can log into PKI-SRV01 as **CORP\pki.admin**, you are communicating with 
 3. Set **Certificate Recipient** to: `Windows 8.1 / Windows Server 2012 R2`
 4. Click **OK** on any informational dialog that appears
 
-**Compatibility settings selected:**
+**Compatibility settings:**
 - Certification Authority: ________________
 - Certificate Recipient: ________________
 
 ### Step 4 — Set the Template Name (General Tab)
 
 1. Click the **General** tab
-2. Change **Template display name** to: `CVI Service Account`
-3. The **Template name** (internal name, no spaces) will auto-fill as `CVI-ServiceAccount` — confirm this
-4. Note the **Schema version** shown at the bottom
+2. Change **Template display name** to: `CVI Code Signing`
+3. Confirm the **Template name** (internal) auto-fills as `CVI-CodeSigning`
 
-**General tab — Template names:**
+**Template names:**
 
 | Field | Value |
 |-------|-------|
-| Template display name | CVI Service Account |
-| Template name (internal) | CVI-ServiceAccount |
-| Schema version | |
+| Template display name | CVI Code Signing |
+| Template name (internal) | CVI-CodeSigning |
 
 ### Step 5 — Configure Key Usage
 
 1. Click the **Extensions** tab
-2. In the Extensions list, select **Key Usage** → click **Edit**
-3. In the Key Usage dialog:
-   - Check **Digital Signature**
-   - Uncheck **Key Encipherment** (if checked)
-   - Uncheck **Data Encipherment** (if checked)
-   - Uncheck **Non-Repudiation** (if checked)
-   - Check **Make this extension critical**
-4. Click **OK**
-
-Document what you set and why:
+2. Select **Key Usage** in the list → click **Edit**
+3. Confirm only **Digital Signature** is checked. Uncheck anything else if present
+4. Check **Make this extension critical**
+5. Click **OK**
 
 | Key Usage | Included? | Reason |
 |-----------|-----------|--------|
 | Digital Signature | | |
 | Key Encipherment | | |
-| Data Encipherment | | |
 | Non-Repudiation | | |
 
-**Explanation of Key Usage decisions:**
+**Explanation of Key Usage decision:**
 
 ```
-(in your own words — why did you include what you included, and exclude what you excluded?)
+(why is Digital Signature the only required Key Usage for a code signing certificate?)
 ```
 
 ### Step 6 — Configure Extended Key Usage (Application Policies)
 
 1. Still on the **Extensions** tab, select **Application Policies** → click **Edit**
-2. The User template comes with several EKUs pre-populated (Client Authentication, Encrypting File System, Secure Email). You need to remove all but one:
-   - Select **Encrypting File System** → click **Remove**
-   - Select **Secure Email** → click **Remove**
-   - Leave **Client Authentication** (1.3.6.1.5.5.7.3.2) — this is the only EKU needed
-3. Click **OK**
+2. Confirm only **Code Signing (1.3.6.1.5.5.7.3.3)** is listed
+3. If any other EKUs are present, select them and click **Remove**
+4. Click **OK**
 
-Document your EKU decisions:
+| EKU | Included? | Reason |
+|-----|-----------|--------|
+| Code Signing (1.3.6.1.5.5.7.3.3) | | |
+| Client Authentication | | |
+| Other | | |
 
-| EKU | Included? | OID | Reason |
-|-----|-----------|-----|--------|
-| Client Authentication | | 1.3.6.1.5.5.7.3.2 | |
-| Server Authentication | | 1.3.6.1.5.5.7.3.1 | |
-| Code Signing | | 1.3.6.1.5.5.7.3.3 | |
-| Secure Email | | 1.3.6.1.5.5.7.3.4 | |
-
-**Explanation of EKU decisions:**
+**Explanation of EKU decision:**
 
 ```
-(in your own words — what does this certificate need to do, and why does that determine the EKU?)
+(what does the Code Signing EKU control — and why should no other EKU be added?)
 ```
 
 ### Step 7 — Configure Subject Name
 
 1. Click the **Subject Name** tab
 2. Select **Build from this Active Directory information**
-3. Under **Subject name format**, select **User principal name (UPN)** from the dropdown
-4. Uncheck any other options under "Include this information in alternate subject name" that are not needed
+3. Under Subject name format, select **User principal name (UPN)**
 
-Document your settings:
+| Setting | Value | Reason |
+|---------|-------|--------|
+| Subject name source | | |
+| Subject built from | | |
 
-| Setting | Value Selected | Reason |
-|---------|---------------|--------|
-| Subject name format | | |
-| Include this information in the subject name | | |
+### Step 8 — Set Validity Period and Enrollment Permissions
 
-**Explanation of Subject Name decision:**
+**Validity:**
+1. Click the **General** tab
+2. Set **Validity period** to `1` year (or 2 — document your reasoning)
+3. Leave **Renewal period** at the default
 
-```
-(why does this certificate use "Build from AD" rather than "Supply in request"?)
-```
-
-### Step 8 — Set Validity Period
-
-1. Click the **General** tab (you may already be on it)
-2. Find the **Validity period** and **Renewal period** fields
-3. Set **Validity period** to `1` year (or 2 years — document your reasoning)
-4. Leave **Renewal period** at the default (6 weeks)
-
-> **Note:** The CA itself has a maximum validity setting. If you set 5 years here but certs issue for only 2, the CA's max is overriding your template. You can check with: `certutil -getreg ca\ValidityPeriod`
+**Security / Enrollment Permissions:**
+1. Click the **Security** tab
+2. Select **Authenticated Users** — confirm Read is checked, Enroll is NOT checked
+3. Select **Domain Admins** — confirm Read and Enroll are checked
+4. pki.admin should inherit Enroll through Domain Admins. If it does not, click **Add** → type `pki.admin` → Check Names → OK → check **Read** and **Enroll**
+5. Do NOT enable Autoenroll — code signing certificates should require a deliberate enrollment action
+6. Click **Apply**
 
 | Setting | Value | Reason |
 |---------|-------|--------|
 | Validity period | | |
-| Renewal period | | |
+| Enroll — account(s) granted | | |
+| Autoenroll | | |
 
-**Explanation of validity period decision:**
+### Step 9 — Save the Template
 
-```
-(why did you choose this period? how does it relate to the CA maximum and the service account lifecycle?)
-```
+1. Click **OK** to close the Properties window
+2. Verify **CVI-CodeSigning** now appears in the certtmpl.msc list
 
-### Step 9 — Set Enrollment Permissions (Security Tab)
-
-1. Click the **Security** tab
-2. You will see **Authenticated Users** and **Domain Admins** already listed
-3. Add svc.autoenroll manually:
-   - Click **Add**
-   - In the object picker, type `svc.autoenroll` and click **Check Names**
-   - Confirm the account resolves to `CORP\svc.autoenroll`, then click **OK**
-   - With **svc.autoenroll** selected in the list, check **Read**, **Enroll**, and **Autoenroll**
-4. Click **Apply**
-5. Review the permissions on all three entries and document them below
-
-| Group / Account | Read | Enroll | Autoenroll | Reason |
-|-----------------|------|--------|------------|--------|
-| Authenticated Users | | | | |
-| CORP\svc.autoenroll | | | | |
-| Domain Admins | | | | |
-
-**Explanation of enrollment permission decisions:**
-
-```
-(why are permissions set this way? what risk does restricting Enroll to svc.autoenroll only prevent?)
-```
-
-### Step 10 — Save the Template
-
-1. Click **OK** to close the Properties window and save the template
-2. Verify **CVI-ServiceAccount** now appears in the certtmpl.msc list
-
-**Template saved and visible in certtmpl.msc:**
-- [ ] Yes
+**Template saved:**
+- [ ] Yes — visible in certtmpl.msc
 
 ---
 
-## Part B — Publish the Template and Issue the Certificate
+## Part B — Publish and Issue the Certificate
 
 ### Step 1 — Publish the Template to the CA
 
 1. Press **Win + R**, type `certsrv.msc`, and press **Enter**
 2. Expand **CVI Issuing CA 1** in the left pane
 3. Right-click **Certificate Templates** → **New** → **Certificate Template to Issue**
-4. In the Enable Certificate Templates dialog, scroll to find **CVI-ServiceAccount**
-5. Select it → click **OK**
-6. The template should appear in the Certificate Templates node within 30 seconds. If it doesn't, right-click the node → **Refresh**
+4. Scroll to find **CVI-CodeSigning** → select it → click **OK**
+5. The template should appear in the Certificate Templates node within 30 seconds. If it doesn't, right-click the node → **Refresh**
 
-**CVI-ServiceAccount visible in Certificate Templates node:**
+**CVI-CodeSigning visible in Certificate Templates node:**
 - [ ] Yes
-- [ ] No — describe what happened:
+
+### Step 2 — Request the Certificate (as pki.admin)
+
+1. Press **Win + R**, type `mmc.exe`, and press **Enter**
+2. Go to **File → Add/Remove Snap-in**
+3. Select **Certificates** → click **Add**
+4. Choose **My user account** → click **Finish** → click **OK**
+5. In the left pane, expand **Certificates (Current User)** → expand **Personal**
+
+> **Note:** If no certificates have been issued yet, you will not see a **Certificates** folder under Personal — this is expected. Right-click **Personal** directly → **All Tasks** → **Request New Certificate**. Once the certificate is issued, the Certificates folder will appear automatically.
+
+6. Right-click **Personal** → **All Tasks** → **Request New Certificate**
+7. Click **Next** through the enrollment wizard
+8. Select **Active Directory Enrollment Policy** → click **Next**
+9. The **CVI-CodeSigning** template should appear in the list. Check the box next to it
+10. Click **Enroll**
+11. Enrollment should complete immediately. Click **Finish**
+
+**Certificate issued:**
+- [ ] Yes — immediately
+- [ ] Pending — describe:
 
 ```
-(describe here)
+(describe outcome)
 ```
 
----
+### Step 3 — Record the Request ID
 
-### Step 2 — Request the Certificate for svc.autoenroll
+1. Open **certsrv.msc**
+2. Expand **CVI Issuing CA 1** → click **Issued Certificates**
+3. Find the pki.admin code signing certificate
+4. Record the Request ID below
 
-> **Important:** svc.autoenroll is an AD user account, not a Windows service. The Certificates snap-in "Service account" option lists Windows system services only — svc.autoenroll will not appear there. Instead, use `runas` to open MMC running as the svc.autoenroll account.
+**Request ID from certsrv.msc Issued Certificates node:** ________________
 
-1. Open **Command Prompt** or **PowerShell** as Administrator
-2. Run the following command:
-   ```
-   runas /user:CORP\svc.autoenroll mmc.exe
-   ```
-3. Enter the **svc.autoenroll password** when prompted
-4. A new MMC window opens — this window is running as svc.autoenroll
-5. In the new MMC window: **File → Add/Remove Snap-in**
-6. Select **Certificates** → click **Add**
-7. Choose **My user account** → click **Finish** → click **OK**
-8. Expand **Certificates (Current User)** → **Personal** → **Certificates**
-9. Right-click the **Certificates** folder → **All Tasks** → **Request New Certificate**
-10. Click **Next** through the enrollment wizard
-11. Select **Active Directory Enrollment Policy** → click **Next**
-12. The CVI-ServiceAccount template should appear in the list. Check the box next to it
-13. Click **Enroll**
-14. Enrollment should complete immediately (Status: Succeeded). Click **Finish**
+> **Save this Request ID.** It is used in Week 12 revocation and in Lab 03.
 
-**Enrollment wizard — enrollment policy selected:**
+### Step 4 — Verify the Certificate
 
-```
-(Active Directory Enrollment Policy or other?)
-```
-
-**Templates visible in the wizard:**
-
-```
-(list all templates you see)
-```
-
-**CVI-ServiceAccount visible in wizard:**
-- [ ] Yes
-- [ ] No — troubleshooting steps taken:
-
-**Certificate request submitted:**
-- [ ] Yes — issued immediately
-- [ ] Yes — pending manager approval (describe resolution):
-- [ ] No — error encountered:
-
-```
-(paste error or describe outcome)
-```
-
----
-
-## Part C — Verify the Issued Certificate
-
-### Step 1 — Inspect the Certificate with certutil
-
-Open **PowerShell** on PKI-SRV01 as CORP\pki.admin and run:
+Open **PowerShell** on PKI-SRV01 and run:
 
 ```powershell
 certutil -store My
 ```
 
-> If the certificate was enrolled via the runas MMC session, it will be in the svc.autoenroll user's personal store, not the pki.admin store. To view it, you can either re-open the runas MMC window, or check the CA's Issued Certificates node (Step 2 below) to confirm issuance.
-
-**Full certutil output:**
+**Full certutil output for the code signing certificate:**
 
 ```
 (paste output here)
 ```
 
-**From the certutil output — record the following:**
+Locate the CVI-CodeSigning certificate in the output and confirm the EKU field:
 
 | Field | Value |
 |-------|-------|
 | Subject | |
-| Issuer | |
-| Serial Number | |
-| Key Usage | |
-| Enhanced Key Usage (EKU) | |
-| Validity: Not Before | |
-| Validity: Not After | |
+| EKU | |
+| Validity | |
 | Thumbprint | |
 
-### Step 2 — Confirm in certsrv.msc and Record the Request ID
+**EKU = 1.3.6.1.5.5.7.3.3 (Code Signing) confirmed:**
+- [ ] Yes
+- [ ] No — describe discrepancy:
 
-1. Open **certsrv.msc** (Press Win + R → type `certsrv.msc`)
-2. Expand **CVI Issuing CA 1** → click **Issued Certificates**
-3. Find the svc.autoenroll certificate in the list (sort by Request ID or Requester Name)
-4. Double-click it to open and confirm it shows the CVI-ServiceAccount template
-5. Record the values below
+---
 
-**Certificate visible in Issued Certificates node:**
+## Part C — Sign a PowerShell Script
+
+### Step 1 — Create the Test Script
+
+Open **PowerShell** on PKI-SRV01 as CORP\pki.admin and run the following block. Copy and paste it exactly:
+
+```powershell
+$scriptContent = @'
+# CVI Phase 2 — Week 11 Code Signing Test
+Write-Host "This script is signed with a CVI code signing certificate."
+Write-Host "Issued to: pki.admin"
+Write-Host "Date: $(Get-Date)"
+'@
+
+New-Item -Path "C:\Scripts" -ItemType Directory -Force
+Set-Content -Path "C:\Scripts\Test-CVI.ps1" -Value $scriptContent
+```
+
+**Script created at C:\Scripts\Test-CVI.ps1:**
 - [ ] Yes
 
-**Record from the Issued Certificates node:**
+### Step 2 — Retrieve the Code Signing Certificate
 
-| Column | Value |
-|--------|-------|
-| Request ID | |
-| Requester Name | |
-| Certificate Template | |
-| Issued Common Name | |
-| Certificate Expiration Date | |
+Run the following to confirm the certificate is accessible and select it into a variable:
 
-> **Save this Request ID.** You will use it in Week 12 to revoke this certificate, and in Lab 03 for the comparison exercise.
+```powershell
+$cert = Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert | Select-Object -First 1
+$cert | Select-Object Subject, Thumbprint, NotAfter
+```
+
+**Output of certificate selection:**
+
+```
+(paste output here)
+```
+
+> If this returns nothing, the certificate was not issued with the Code Signing EKU. Go back to certtmpl.msc, check the Application Policies on CVI-CodeSigning, and re-enroll.
+
+### Step 3 — Sign the Script
+
+```powershell
+$result = Set-AuthenticodeSignature -FilePath "C:\Scripts\Test-CVI.ps1" -Certificate $cert
+$result
+```
+
+**Set-AuthenticodeSignature output:**
+
+```
+(paste output here)
+```
+
+Expected result: **Status = Valid**
+
+### Step 4 — Verify the Signature
+
+```powershell
+Get-AuthenticodeSignature -FilePath "C:\Scripts\Test-CVI.ps1"
+```
+
+**Full Get-AuthenticodeSignature output:**
+
+```
+(paste output here)
+```
+
+**Status:**
+- [ ] Valid
+- [ ] Other — describe:
+
+### Step 5 — Check for a Timestamp
+
+```powershell
+(Get-AuthenticodeSignature "C:\Scripts\Test-CVI.ps1").TimeStamperCertificate
+```
+
+**TimeStamperCertificate output:**
+
+```
+(paste output — $null if no timestamp)
+```
+
+**Timestamp present:**
+- [ ] Yes — note the timestamp authority:
+- [ ] No — note this in Part D
+
+### Step 6 — Hash Mismatch Test
+
+Modify the script after signing to verify the signature breaks:
+
+```powershell
+Add-Content -Path "C:\Scripts\Test-CVI.ps1" -Value "# Modified after signing"
+
+Get-AuthenticodeSignature -FilePath "C:\Scripts\Test-CVI.ps1"
+```
+
+**Get-AuthenticodeSignature output after modification:**
+
+```
+(paste output here)
+```
+
+**Status after modification:**
+- [ ] HashMismatch
+- [ ] Other — describe:
 
 ---
 
 ## Part D — Written Explanation
 
-Answer the following questions in plain prose paragraphs — not bullet points. Aim for 2–3 paragraphs total across the two questions.
+Answer the following in plain prose paragraphs — not bullet points.
 
-**What makes a service account certificate different from a user certificate? Address the following:**
+**What does the Code Signing EKU enforce, and at what layer?**
 
-1. Key difference in EKU — what does a user certificate include that the service account certificate should not, and why?
-2. Subject Name source — both use "Build from AD," but what is different about the identity being represented?
-3. Enrollment — who requests a user certificate vs. who requests a service account certificate, and why does this matter?
+Cover: what application or OS component checks for the Code Signing EKU, what it does when the EKU is present vs. absent, and how this is different from the cryptographic validity check.
 
 ```
-(your written explanation here)
+(your explanation here)
 ```
 
-**What are the operational risks of relying on password authentication for service accounts instead of certificate-based authentication?**
+**What did the hash mismatch test demonstrate about what the signature is protecting?**
+
+Cover: what the signature covers (the code hash), what the mismatch status means, and why this matters for software integrity in a production environment.
 
 ```
-(your answer here — identify at least two specific risks)
+(your explanation here)
+```
+
+**Should the CVI-CodeSigning template require CA certificate manager approval in a production environment? Why or why not?**
+
+```
+(your answer here)
 ```
 
 ---
 
 ## Reflection
 
-**One thing about the CVI-ServiceAccount template design that was a non-obvious decision:**
+**Why is a timestamp operationally significant for a code signing certificate — particularly for software that will be distributed and executed over a long period?**
+
+```
+(your answer here)
+```
+
+**One thing about the code signing workflow you would want to understand better or configure differently:**
 
 ```
 (your observation here)
-```
-
-**What would you change about this template if this were a production environment rather than a lab?**
-
-```
-(your answer here — think about approval workflow, validity period, or monitoring)
 ```
 
 ---
@@ -355,15 +367,19 @@ Answer the following questions in plain prose paragraphs — not bullet points. 
 ## Submission Checklist
 
 - [ ] Pre-lab verification completed
-- [ ] Part A: Template duplicated from the User template
-- [ ] Part A: All five design decisions (Key Usage, EKU, Subject Name, Validity, Security) documented with rationale
-- [ ] Part A: Template saved as CVI-ServiceAccount and visible in certtmpl.msc
+- [ ] Part A: Template duplicated from the built-in Code Signing template
+- [ ] Part A: All settings configured — Key Usage, EKU, Subject Name, Validity, Enrollment Permissions
+- [ ] Part A: Template saved as CVI-CodeSigning and visible in certtmpl.msc
 - [ ] Part B: Template published to CVI Issuing CA 1
-- [ ] Part B: Certificate requested via runas /user:CORP\svc.autoenroll mmc.exe
-- [ ] Part B: Certificate issued — enrollment outcome documented
-- [ ] Part C: certutil output pasted and key fields extracted into table
-- [ ] Part C: Request ID recorded from certsrv.msc Issued Certificates node
+- [ ] Part B: Certificate issued to pki.admin — Request ID recorded
+- [ ] Part B: certutil output pasted with EKU confirmed as Code Signing (1.3.6.1.5.5.7.3.3)
+- [ ] Part C: Test script created at C:\Scripts\Test-CVI.ps1
+- [ ] Part C: Certificate selection output pasted
+- [ ] Part C: Set-AuthenticodeSignature output pasted (Status = Valid)
+- [ ] Part C: Get-AuthenticodeSignature output pasted (Status = Valid)
+- [ ] Part C: Timestamp check output pasted
+- [ ] Part C: Hash mismatch test output pasted (Status = HashMismatch)
 - [ ] Part D: Written explanation completed in prose
-- [ ] Reflection section completed
-- [ ] File saved as `lab-01-service-account-profile.md`
+- [ ] Reflection completed
+- [ ] File saved as `lab-02-code-signing-certificate.md`
 - [ ] File committed to portfolio repo under `labs/week-11/`
