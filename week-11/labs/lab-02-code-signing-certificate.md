@@ -15,19 +15,52 @@ If you can log into PKI-SRV01 as **CORP\pki.admin**, you are communicating with 
 
 ## Part A — Design the CVI-CodeSigning Template
 
-Open the Certificate Templates console: **Run → certtmpl.msc**
+### Step 1 — Open the Certificate Templates Console
 
-### Template Duplication
+1. Press **Win + R**, type `certtmpl.msc`, and press **Enter**
+2. The Certificate Templates console opens showing all templates installed on this CA
 
-**Source template duplicated:** ________________ (use the built-in Code Signing template)
+### Step 2 — Duplicate the Code Signing Template
+
+1. Scroll through the list to find the built-in **Code Signing** template
+2. Right-click **Code Signing** → select **Duplicate Template**
+3. A new template Properties window opens — this is your working copy
+
+> **Why Code Signing and not User?** The built-in Code Signing template already has the correct Key Usage (Digital Signature only) and EKU (Code Signing only) pre-configured. Starting from User would require removing multiple EKUs and introduces the risk of leaving incorrect settings in place.
+
+**Source template duplicated:** ________________
+
+### Step 3 — Set Compatibility Settings
+
+1. Click the **Compatibility** tab
+2. Set **Certification Authority** to: `Windows Server 2012 R2`
+3. Set **Certificate Recipient** to: `Windows 8.1 / Windows Server 2012 R2`
+4. Click **OK** on any informational dialog that appears
 
 **Compatibility settings:**
 - Certification Authority: ________________
 - Certificate Recipient: ________________
 
-### Design Decisions
+### Step 4 — Set the Template Name (General Tab)
 
-**1 — Key Usage**
+1. Click the **General** tab
+2. Change **Template display name** to: `CVI Code Signing`
+3. Confirm the **Template name** (internal) auto-fills as `CVI-CodeSigning`
+
+**Template names:**
+
+| Field | Value |
+|-------|-------|
+| Template display name | CVI Code Signing |
+| Template name (internal) | CVI-CodeSigning |
+
+### Step 5 — Configure Key Usage
+
+1. Click the **Extensions** tab
+2. Select **Key Usage** in the list → click **Edit**
+3. Confirm only **Digital Signature** is checked. Uncheck anything else if present
+4. Check **Make this extension critical**
+5. Click **OK**
 
 | Key Usage | Included? | Reason |
 |-----------|-----------|--------|
@@ -41,7 +74,12 @@ Open the Certificate Templates console: **Run → certtmpl.msc**
 (why is Digital Signature the only required Key Usage for a code signing certificate?)
 ```
 
-**2 — EKU**
+### Step 6 — Configure Extended Key Usage (Application Policies)
+
+1. Still on the **Extensions** tab, select **Application Policies** → click **Edit**
+2. Confirm only **Code Signing (1.3.6.1.5.5.7.3.3)** is listed
+3. If any other EKUs are present, select them and click **Remove**
+4. Click **OK**
 
 | EKU | Included? | Reason |
 |-----|-----------|--------|
@@ -55,14 +93,31 @@ Open the Certificate Templates console: **Run → certtmpl.msc**
 (what does the Code Signing EKU control — and why should no other EKU be added?)
 ```
 
-**3 — Subject Name**
+### Step 7 — Configure Subject Name
+
+1. Click the **Subject Name** tab
+2. Select **Build from this Active Directory information**
+3. Under Subject name format, select **User principal name (UPN)**
 
 | Setting | Value | Reason |
 |---------|-------|--------|
 | Subject name source | | |
 | Subject built from | | |
 
-**4 — Validity and Enrollment Permissions**
+### Step 8 — Set Validity Period and Enrollment Permissions
+
+**Validity:**
+1. Click the **General** tab
+2. Set **Validity period** to `1` year (or 2 — document your reasoning)
+3. Leave **Renewal period** at the default
+
+**Security / Enrollment Permissions:**
+1. Click the **Security** tab
+2. Select **Authenticated Users** — confirm Read is checked, Enroll is NOT checked
+3. Select **Domain Admins** — confirm Read and Enroll are checked
+4. pki.admin should inherit Enroll through Domain Admins. If it does not, click **Add** → type `pki.admin` → Check Names → OK → check **Read** and **Enroll**
+5. Do NOT enable Autoenroll — code signing certificates should require a deliberate enrollment action
+6. Click **Apply**
 
 | Setting | Value | Reason |
 |---------|-------|--------|
@@ -70,12 +125,10 @@ Open the Certificate Templates console: **Run → certtmpl.msc**
 | Enroll — account(s) granted | | |
 | Autoenroll | | |
 
-**Template names:**
+### Step 9 — Save the Template
 
-| Field | Value |
-|-------|-------|
-| Template display name | CVI Code Signing |
-| Template name (internal) | CVI-CodeSigning |
+1. Click **OK** to close the Properties window
+2. Verify **CVI-CodeSigning** now appears in the certtmpl.msc list
 
 **Template saved:**
 - [ ] Yes — visible in certtmpl.msc
@@ -84,25 +137,33 @@ Open the Certificate Templates console: **Run → certtmpl.msc**
 
 ## Part B — Publish and Issue the Certificate
 
-### Publish the Template
+### Step 1 — Publish the Template to the CA
 
-**Steps performed:**
-
-1. certsrv.msc → CVI Issuing CA 1 → Certificate Templates → New → Certificate Template to Issue
-2. Selected **CVI-CodeSigning**
+1. Press **Win + R**, type `certsrv.msc`, and press **Enter**
+2. Expand **CVI Issuing CA 1** in the left pane
+3. Right-click **Certificate Templates** → **New** → **Certificate Template to Issue**
+4. Scroll to find **CVI-CodeSigning** → select it → click **OK**
+5. The template should appear in the Certificate Templates node within 30 seconds. If it doesn't, right-click the node → **Refresh**
 
 **CVI-CodeSigning visible in Certificate Templates node:**
 - [ ] Yes
 
-### Request the Certificate (as pki.admin)
+### Step 2 — Request the Certificate (as pki.admin)
 
-**Steps performed:**
+1. Press **Win + R**, type `mmc.exe`, and press **Enter**
+2. Go to **File → Add/Remove Snap-in**
+3. Select **Certificates** → click **Add**
+4. Choose **My user account** → click **Finish** → click **OK**
+5. In the left pane, expand **Certificates (Current User)** → expand **Personal**
 
-1. mmc.exe → Certificates snap-in → **My user account**
-2. Personal → All Tasks → Request New Certificate
-3. Enrollment policy: ________________
-4. Template selected: **CVI-CodeSigning**
-5. Enrolled
+> **Note:** If no certificates have been issued yet, you will not see a **Certificates** folder under Personal — this is expected. Right-click **Personal** directly → **All Tasks** → **Request New Certificate**. Once the certificate is issued, the Certificates folder will appear automatically.
+
+6. Right-click **Personal** → **All Tasks** → **Request New Certificate**
+7. Click **Next** through the enrollment wizard
+8. Select **Active Directory Enrollment Policy** → click **Next**
+9. The **CVI-CodeSigning** template should appear in the list. Check the box next to it
+10. Click **Enroll**
+11. Enrollment should complete immediately. Click **Finish**
 
 **Certificate issued:**
 - [ ] Yes — immediately
@@ -112,11 +173,20 @@ Open the Certificate Templates console: **Run → certtmpl.msc**
 (describe outcome)
 ```
 
+### Step 3 — Record the Request ID
+
+1. Open **certsrv.msc**
+2. Expand **CVI Issuing CA 1** → click **Issued Certificates**
+3. Find the pki.admin code signing certificate
+4. Record the Request ID below
+
 **Request ID from certsrv.msc Issued Certificates node:** ________________
 
 > **Save this Request ID.** It is used in Week 12 revocation and in Lab 03.
 
-### Verify the Certificate
+### Step 4 — Verify the Certificate
+
+Open **PowerShell** on PKI-SRV01 and run:
 
 ```powershell
 certutil -store My
@@ -128,7 +198,7 @@ certutil -store My
 (paste output here)
 ```
 
-**Key fields confirmed:**
+Locate the CVI-CodeSigning certificate in the output and confirm the EKU field:
 
 | Field | Value |
 |-------|-------|
@@ -145,12 +215,11 @@ certutil -store My
 
 ## Part C — Sign a PowerShell Script
 
-### Create the Test Script
+### Step 1 — Create the Test Script
 
-Create a simple PowerShell script on PKI-SRV01:
+Open **PowerShell** on PKI-SRV01 as CORP\pki.admin and run the following block. Copy and paste it exactly:
 
 ```powershell
-# Create the test script
 $scriptContent = @'
 # CVI Phase 2 — Week 11 Code Signing Test
 Write-Host "This script is signed with a CVI code signing certificate."
@@ -165,15 +234,12 @@ Set-Content -Path "C:\Scripts\Test-CVI.ps1" -Value $scriptContent
 **Script created at C:\Scripts\Test-CVI.ps1:**
 - [ ] Yes
 
----
+### Step 2 — Retrieve the Code Signing Certificate
 
-### Sign the Script
+Run the following to confirm the certificate is accessible and select it into a variable:
 
 ```powershell
-# Get the code signing certificate
 $cert = Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert | Select-Object -First 1
-
-# Confirm this is the right certificate
 $cert | Select-Object Subject, Thumbprint, NotAfter
 ```
 
@@ -183,8 +249,11 @@ $cert | Select-Object Subject, Thumbprint, NotAfter
 (paste output here)
 ```
 
+> If this returns nothing, the certificate was not issued with the Code Signing EKU. Go back to certtmpl.msc, check the Application Policies on CVI-CodeSigning, and re-enroll.
+
+### Step 3 — Sign the Script
+
 ```powershell
-# Sign the script
 $result = Set-AuthenticodeSignature -FilePath "C:\Scripts\Test-CVI.ps1" -Certificate $cert
 $result
 ```
@@ -195,9 +264,9 @@ $result
 (paste output here)
 ```
 
----
+Expected result: **Status = Valid**
 
-### Verify the Signature
+### Step 4 — Verify the Signature
 
 ```powershell
 Get-AuthenticodeSignature -FilePath "C:\Scripts\Test-CVI.ps1"
@@ -213,7 +282,7 @@ Get-AuthenticodeSignature -FilePath "C:\Scripts\Test-CVI.ps1"
 - [ ] Valid
 - [ ] Other — describe:
 
-**Is a timestamp present?**
+### Step 5 — Check for a Timestamp
 
 ```powershell
 (Get-AuthenticodeSignature "C:\Scripts\Test-CVI.ps1").TimeStamperCertificate
@@ -229,17 +298,13 @@ Get-AuthenticodeSignature -FilePath "C:\Scripts\Test-CVI.ps1"
 - [ ] Yes — note the timestamp authority:
 - [ ] No — note this in Part D
 
----
-
-### Hash Mismatch Test (Destructive)
+### Step 6 — Hash Mismatch Test
 
 Modify the script after signing to verify the signature breaks:
 
 ```powershell
-# Add content to the signed script
 Add-Content -Path "C:\Scripts\Test-CVI.ps1" -Value "# Modified after signing"
 
-# Re-verify
 Get-AuthenticodeSignature -FilePath "C:\Scripts\Test-CVI.ps1"
 ```
 
@@ -257,12 +322,14 @@ Get-AuthenticodeSignature -FilePath "C:\Scripts\Test-CVI.ps1"
 
 ## Part D — Written Explanation
 
+Answer the following in plain prose paragraphs — not bullet points.
+
 **What does the Code Signing EKU enforce, and at what layer?**
 
 Cover: what application or OS component checks for the Code Signing EKU, what it does when the EKU is present vs. absent, and how this is different from the cryptographic validity check.
 
 ```
-(your explanation here — prose paragraphs)
+(your explanation here)
 ```
 
 **What did the hash mismatch test demonstrate about what the signature is protecting?**
@@ -270,7 +337,7 @@ Cover: what application or OS component checks for the Code Signing EKU, what it
 Cover: what the signature covers (the code hash), what the mismatch status means, and why this matters for software integrity in a production environment.
 
 ```
-(your explanation here — prose paragraphs)
+(your explanation here)
 ```
 
 **Should the CVI-CodeSigning template require CA certificate manager approval in a production environment? Why or why not?**
@@ -300,17 +367,19 @@ Cover: what the signature covers (the code hash), what the mismatch status means
 ## Submission Checklist
 
 - [ ] Pre-lab verification completed
-- [ ] Part A: CVI-CodeSigning template designed with rationale for all settings
-- [ ] Part A: Template created and visible in certtmpl.msc
+- [ ] Part A: Template duplicated from the built-in Code Signing template
+- [ ] Part A: All settings configured — Key Usage, EKU, Subject Name, Validity, Enrollment Permissions
+- [ ] Part A: Template saved as CVI-CodeSigning and visible in certtmpl.msc
 - [ ] Part B: Template published to CVI Issuing CA 1
 - [ ] Part B: Certificate issued to pki.admin — Request ID recorded
-- [ ] Part B: certutil output pasted with EKU confirmed as Code Signing
-- [ ] Part C: Test script created
-- [ ] Part C: Script signed and Set-AuthenticodeSignature output pasted
-- [ ] Part C: Get-AuthenticodeSignature output = Valid, pasted
+- [ ] Part B: certutil output pasted with EKU confirmed as Code Signing (1.3.6.1.5.5.7.3.3)
+- [ ] Part C: Test script created at C:\Scripts\Test-CVI.ps1
+- [ ] Part C: Certificate selection output pasted
+- [ ] Part C: Set-AuthenticodeSignature output pasted (Status = Valid)
+- [ ] Part C: Get-AuthenticodeSignature output pasted (Status = Valid)
 - [ ] Part C: Timestamp check output pasted
-- [ ] Part C: Hash mismatch test performed and output pasted (Status = HashMismatch)
-- [ ] Part D: Written explanation in prose — EKU enforcement and hash mismatch
+- [ ] Part C: Hash mismatch test output pasted (Status = HashMismatch)
+- [ ] Part D: Written explanation completed in prose
 - [ ] Reflection completed
 - [ ] File saved as `lab-02-code-signing-certificate.md`
 - [ ] File committed to portfolio repo under `labs/week-11/`
