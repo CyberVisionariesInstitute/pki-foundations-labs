@@ -15,6 +15,100 @@ Complete Lab 01 before starting Lab 02. You need:
 
 ---
 
+## Known Environment Note
+
+The lab OVA was built without HTTP-based AIA and CDP extensions on the CA. This means certificates issued before Part 0 will show only LDAP URLs in their AIA and CDP extensions — no `http://pki-srv01.corp.cvilab.local/ocsp` entry will appear. This is not something you caused or misconfigured. Part 0 below corrects this before you proceed.
+
+---
+
+## Part 0 — Configure HTTP AIA and CDP Extensions on the CA
+
+> **Why this matters:** The Online Responder requires an HTTP-accessible OCSP URL in the AIA extension of issued certificates. Without it, relying parties cannot locate the OCSP responder, and the Online Responder snap-in will report stale or unavailable CRL data. This part adds the correct HTTP entries to the CA and re-issues your test certificates so they reflect the correct URLs.
+
+### Step 1 — Add HTTP CDP and AIA Extensions
+
+1. On **PKI-SRV01**, open an **elevated PowerShell prompt**
+2. Run the following commands exactly as shown:
+
+```powershell
+# Set HTTP CDP (CRL Distribution Point)
+certutil -setreg CA\CRLPublicationURLs "65:C:\Windows\system32\CertSrv\CertEnroll\%3%8%9.crl\n6:http://pki-srv01.corp.cvilab.local/CertEnroll/%3%8%9.crl"
+
+# Set HTTP AIA (CA certificate download + OCSP)
+certutil -setreg CA\CACertPublicationURLs "1:C:\Windows\system32\CertSrv\CertEnroll\%1_%3%4.crt\n2:http://pki-srv01.corp.cvilab.local/CertEnroll/%1_%3%4.crt\n32:http://pki-srv01.corp.cvilab.local/ocsp"
+```
+
+3. Restart the Certificate Services and publish a fresh CRL:
+
+```powershell
+net stop certsvc
+net start certsvc
+certutil -CRL
+```
+
+Expected output from `certutil -CRL`:
+```
+CRL published.
+```
+
+> **What the flags mean:** In the CDP string, `65` = publish to the local file system and include in certificates. `6` = publish to the HTTP URL and include in certificates. In the AIA string, `1` = local file, `2` = HTTP download URL for the CA cert, `32` = OCSP URL.
+
+**HTTP AIA and CDP configured and CertSvc restarted:**
+- [ ] Yes
+- [ ] No — describe the error:
+
+```
+(paste certutil -CRL output here)
+```
+
+### Step 2 — Re-Issue Your Test Certificates
+
+Because the CA extension changes only apply to newly issued certificates, you need to re-issue the two certificates you will use in Parts D and E: one valid cert and one that you will revoke.
+
+1. In **certsrv.msc** on PKI-SRV01, issue a new certificate using any available template (WebServer or a template from a prior lab)
+2. Export it as a `.cer` file — this will be your **valid test certificate** for Part D
+3. Issue a second certificate from the same template
+4. Export it as a second `.cer` file — you will revoke this one in Step 3
+
+> If you have an existing valid certificate from Week 10 or 11 and prefer to keep it, you may re-use it — but note that it will not contain the HTTP OCSP URL in its AIA extension. For Part D and E to work as documented, use the newly issued certificates.
+
+### Step 3 — Revoke the Second Certificate
+
+1. In **certsrv.msc**, locate the second certificate you just issued under **Issued Certificates**
+2. Right-click it → **All Tasks → Revoke Certificate**
+3. Select reason **Key Compromise** → click **Yes**
+4. Publish a new CRL immediately:
+
+```powershell
+certutil -CRL
+```
+
+5. This revoked certificate will be your **revoked test certificate** for Part D — it replaces the Lab 01 revoked certificate for the purposes of OCSP testing
+
+### Step 4 — Confirm the HTTP OCSP URL Appears in the New Certificate
+
+1. Run a dump of your newly issued valid certificate:
+
+```powershell
+certutil -dump <valid-certificate.cer> | findstr /i "ocsp"
+```
+
+Expected output should include:
+```
+OCSP Authority Info Access
+    URL=http://pki-srv01.corp.cvilab.local/ocsp
+```
+
+**HTTP OCSP URL confirmed present in newly issued certificate:**
+- [ ] Yes
+- [ ] No — do not proceed. Check that `certutil -CRL` ran without error and that CertSvc restarted successfully. Re-issue the certificate and try again.
+
+```
+(paste the findstr OCSP output here)
+```
+
+---
+
 ## Pre-Lab Verification
 
 If you can log into PKI-SRV01 as CORP\pki.admin, you are communicating with DC01 and the environment is ready. Proceed to Part A.
